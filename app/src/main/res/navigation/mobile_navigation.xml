@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_calender">
+
+    <fragment
+        android:id="@+id/navigation_user"
+        android:name="com.example.foodplanner0_1.ui.user.UserFragment"
+        android:label="@string/title_user"
+        tools:layout="@layout/fragment_user" />
+
+    <fragment
+        android:id="@+id/navigation_calender"
+        android:name="com.example.foodplanner0_1.ui.calender.CalenderFragment"
+        android:label="@string/title_calender"
+        tools:layout="@layout/fragment_calender" />
+
+    <fragment
+        android:id="@+id/navigation_add"
+        android:name="com.example.foodplanner0_1.ui.notifications.NotificationsFragment"
+        android:label="@string/title_add"
+        tools:layout="@layout/fragment_add" />
+
+    <fragment
+        android:id="@+id/navigation_recipes"
+        android:name="com.example.foodplanner0_1.ui.recipes.RecipesFragment"
+        android:label="@string/title_recipes"
+        tools:layout="@layout/fragment_recipes" />
+
+    <fragment
+        android:id="@+id/navigation_shoppingList"
+        android:name="com.example.foodplanner0_1.ui.shoppinglist.ShoppingListFragment"
+        android:label="@string/title_shoppingList"
+        tools:layout="@layout/fragment_shoppinglist" />
+
+</navigation>
+    <!-- android:name="com.example.foodplanner0_1.ui.user.UserFragment"
+            android:name="com.example.foodplanner0_1.ui.calender.CalenderFragment"
+            android:name="com.example.foodplanner0_1.ui.add.AddRecipeFragment"
+            android:name="com.example.foodplanner0_1.ui.recipes.RecipesFragment"
+            android:name="com.example.foodplanner0_1.ui.shoppinglist.ShoppingListFragment" -->
