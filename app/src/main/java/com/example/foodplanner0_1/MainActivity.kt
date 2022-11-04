@@ -27,7 +27,7 @@ private lateinit var binding: ActivityMainBinding
         val appBarConfiguration = AppBarConfiguration(setOf(
             R.id.navigation_user,           // Implementation of Navbar-Element "User"
             R.id.navigation_calender,       // Implementation of Navbar-Element "Calender"
-            R.id.navigation_addRecipe,      // Implementation of Navbar-Element "Add", although this is surely not a Fragment in the regular way
+            R.id.navigation_addrecipe,      // Implementation of Navbar-Element "Add", although this is surely not a Fragment in the regular way
             R.id.navigation_recipes,        // Implementation of Navbar-Element "Recipes"
             R.id.navigation_shoppingList))  // Implementation of Navbar-Element "shoppinglist"
         setupActionBarWithNavController(navController, appBarConfiguration)

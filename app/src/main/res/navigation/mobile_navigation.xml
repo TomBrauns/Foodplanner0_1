@@ -18,7 +18,7 @@
         tools:layout="@layout/fragment_calender" />
 
     <fragment
-        android:id="@+id/navigation_addRecipe"
+        android:id="@+id/navigation_addrecipe"
         android:name="com.example.foodplanner0_1.ui.addrecipe.AddRecipeFragment"
         android:label="@string/title_add"
         tools:layout="@layout/fragment_addrecipe" />
