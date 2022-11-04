@@ -18,10 +18,10 @@
         tools:layout="@layout/fragment_calender" />
 
     <fragment
-        android:id="@+id/navigation_add"
-        android:name="com.example.foodplanner0_1.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_addRecipe"
+        android:name="com.example.foodplanner0_1.ui.addrecipe.AddRecipeFragment"
         android:label="@string/title_add"
-        tools:layout="@layout/fragment_add" />
+        tools:layout="@layout/fragment_addrecipe" />
 
     <fragment
         android:id="@+id/navigation_recipes"
