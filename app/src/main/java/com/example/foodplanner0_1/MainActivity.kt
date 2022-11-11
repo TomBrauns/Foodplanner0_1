@@ -1,23 +1,40 @@
 package com.example.foodplanner0_1
 
-import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.databinding.ActivityMainBinding
+import com.example.foodplanner0_1.ui.recipes.ui.RecipesListFragment
+import com.example.foodplanner0_1.ui.recipes.viewmodel.RecipesNavigationViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
 
-private lateinit var binding: ActivityMainBinding
+private const val RECIPES_LIST_FRAGMENT = "RecipesListFragment"
+
+class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
+
+{
+
+
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewmodel: RecipesNavigationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-     binding = ActivityMainBinding.inflate(layoutInflater)
-     setContentView(binding.root)
+// Line 33 Seems fucked
+
+        viewmodel = ViewModelProvider(this).get(com.example.foodplanner0_1.ui.recipes.viewmodel.RecipesNavigationViewModel::class.java)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
 
@@ -32,5 +49,27 @@ private lateinit var binding: ActivityMainBinding
             R.id.navigation_shoppingList))  // Implementation of Navbar-Element "shoppinglist"
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val fragment = RecipesListFragment()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment_container, fragment, RECIPES_LIST_FRAGMENT)
+            .commit()
     }
+
+    override fun onRecipesSelected(recipesId: String) {
+        val toast = Toast.makeText(
+            getApplication(), "Recipe selected.",
+            Toast.LENGTH_LONG
+        )
+        toast.show()
+    }
+
+    override fun onMoreRecipesButtonSelected() {
+        val toast = Toast.makeText(
+            getApplication(), "Additional Recipes selected.",
+            Toast.LENGTH_LONG
+        )
+        toast.show()
+    }
+
 }
