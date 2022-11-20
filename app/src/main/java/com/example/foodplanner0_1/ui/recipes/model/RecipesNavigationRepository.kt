@@ -1,6 +1,7 @@
 package com.example.foodplanner0_1.ui.recipes.model
 
 
+import android.util.Log
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
@@ -19,11 +20,13 @@ class RecipesNavigationRepository private constructor(){
         private var INSTANCE: RecipesNavigationRepository? = null
 
         fun initialize(fileManager: FileManager) {
+            Log.d("XXX", "YYY1")
             if (INSTANCE == null) {
                 INSTANCE = RecipesNavigationRepository()
             }
             INSTANCE?.fileManager = fileManager
             INSTANCE?.readRecipesCatalog()
+            Log.d("XXX", "YYY2")
         }
 
         fun get(): RecipesNavigationRepository {

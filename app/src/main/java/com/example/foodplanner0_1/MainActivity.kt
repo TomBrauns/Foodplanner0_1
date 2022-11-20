@@ -27,9 +27,9 @@ class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+       // setContentView(R.layout.activity_main)
 
-// Line 33 Seems fucked
+
 
         viewmodel = ViewModelProvider(this).get(com.example.foodplanner0_1.ui.recipes.viewmodel.RecipesNavigationViewModel::class.java)
 
@@ -50,16 +50,19 @@ class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        /*
         val fragment = RecipesListFragment()
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container, fragment, RECIPES_LIST_FRAGMENT)
             .commit()
+            */
+
     }
 
     override fun onRecipesSelected(recipesId: String) {
         val toast = Toast.makeText(
             getApplication(), "Recipe selected.",
-            Toast.LENGTH_LONG
+            Toast.LENGTH_SHORT
         )
         toast.show()
     }
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
     override fun onMoreRecipesButtonSelected() {
         val toast = Toast.makeText(
             getApplication(), "Additional Recipes selected.",
-            Toast.LENGTH_LONG
+            Toast.LENGTH_SHORT
         )
         toast.show()
     }

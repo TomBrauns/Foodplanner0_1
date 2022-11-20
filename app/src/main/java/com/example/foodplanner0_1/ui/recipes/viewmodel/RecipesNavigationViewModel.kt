@@ -11,6 +11,7 @@ class RecipesNavigationViewModel(application: Application) : AndroidViewModel(ap
 
     fun getMyRecipes(): List<RecipesListItem> {
         return recipesNavigationRepository.recipesCatalog
+
     }
 
 }

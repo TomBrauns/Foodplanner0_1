@@ -25,11 +25,9 @@
         android:label="@string/title_add"
         tools:layout="@layout/fragment_addrecipe" />
 
-
-    <!-- Will need to eventually relink recipes to fragment_recipes_list-->
     <fragment
         android:id="@+id/navigation_recipes"
-        android:name="com.example.foodplanner0_1.ui.recipes.RecipesFragment"
+        android:name="com.example.foodplanner0_1.ui.recipes.ui.RecipesListFragment"
         android:label="@string/title_recipes"
         tools:layout="@layout/fragment_recipes" />
 

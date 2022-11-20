@@ -1,5 +1,8 @@
 package com.example.foodplanner0_1.ui.recipes.ui
 
+// This Document references back to the fragment_recipes.xml
+// This Document ALSO references the recipes_list_item.xml
+
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -15,12 +18,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-
 import com.example.foodplanner0_1.ui.recipes.data.RecipesListItem
 import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.ui.recipes.viewmodel.RecipesNavigationViewModel
 
-//Should be done
 private const val TAG = "RecipesListFragment"
 
 class RecipesListFragment : Fragment() {
@@ -63,7 +64,7 @@ class RecipesListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val view = inflater.inflate(R.layout.fragment_recipes_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_recipes, container, false)
 
         recipesListRecyclerView = view.findViewById(R.id.recipes_list_recycler_view) as RecyclerView
         recipesListRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -96,8 +97,10 @@ class RecipesListFragment : Fragment() {
 
         private lateinit var recipesListItem: RecipesListItem
 
+        // Importing the texts from the R.id
         private val recipesLabel: TextView = itemView.findViewById(R.id.recipes_label)
         private val recipesDescriptionText: TextView = itemView.findViewById(R.id.recipes_description)
+        private val recipesIngredientsText: TextView = itemView.findViewById(R.id.recipes_ingredients)
 
         private val recipesButton: Button = itemView.findViewById(R.id.recipes_button)
         init {
@@ -108,8 +111,12 @@ class RecipesListFragment : Fragment() {
             this.recipesListItem = recipesListItem
             recipesLabel.text = this.recipesListItem.title
 
-            recipesDescriptionText.text = this.recipesListItem.description
 
+            // Actually inputting the text
+            recipesDescriptionText.text = this.recipesListItem.description
+            recipesIngredientsText.text = this.recipesListItem.ingredients
+
+            // Following two lines colourate the Recipes
             val colorDrawable = ColorDrawable(Color.parseColor(recipesListItem.complexity.v.color))
             itemView.background = colorDrawable
         }
@@ -151,3 +158,52 @@ class RecipesListFragment : Fragment() {
     }
 
 }
+
+
+// Depricated version of the RecipesFragment.kt
+/*  package com.example.foodplanner0_1.ui.recipes
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.foodplanner0_1.databinding.FragmentRecipesBinding
+
+// My first version of the page. Resetting the "fragment_recipes"
+// will fix the "textRecipes" function
+// Got to figure out where the actual class is
+
+class RecipesFragment : Fragment() {
+
+    private var _binding: FragmentRecipesBinding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val recipesViewModel =
+            ViewModelProvider(this).get(RecipesViewModel::class.java)
+
+        _binding = FragmentRecipesBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        val textView: TextView = binding.textRecipes
+        recipesViewModel.text.observe(viewLifecycleOwner) {
+            textView.text = it
+        }
+        return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+*/
