@@ -16,7 +16,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hi"/>
+            android:text="-"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hi"/>
+            android:text="+"/>
     </LinearLayout>
 
     <LinearLayout
@@ -92,7 +92,5 @@
         android:layout_height="match_parent"
         tools:itemCount="5"
         tools:listitem="@layout/card_weekly" />
-
-
 
 </LinearLayout>
