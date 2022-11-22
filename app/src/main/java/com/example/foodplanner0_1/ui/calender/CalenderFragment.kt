@@ -1,37 +1,31 @@
 package com.example.foodplanner0_1.ui.calender
 
+import android.app.Activity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.foodplanner0_1.databinding.FragmentCalenderBinding
+import android.widget.Button
+import android.widget.Toast
+import com.example.foodplanner0_1.R
 
 class CalenderFragment : Fragment() {
 
-    private var _binding: FragmentCalenderBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    lateinit var buttonPanel : Button
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val calenderViewModel =
-            ViewModelProvider(this).get(CalenderViewModel::class.java)
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_calender, container, false)
+        buttonPanel = view.findViewById(R.id.button2)
+        buttonPanel.setOnClickListener(){
+            Toast.makeText(activity, "Button clicked!", Toast.LENGTH_LONG).show()
+        }
 
-        _binding = FragmentCalenderBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        return root
+        return view
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
