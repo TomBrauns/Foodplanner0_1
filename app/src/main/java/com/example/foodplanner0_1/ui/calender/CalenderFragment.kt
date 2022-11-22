@@ -35,7 +35,7 @@ class CalenderFragment : Fragment() {
 
         fecha= view.findViewById(R.id.text1)
         val time = Calendar.getInstance().time
-        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")
+        val formatter = SimpleDateFormat("MMM yyyy")
         val today = formatter.format(time)
         fecha.text = today
 
