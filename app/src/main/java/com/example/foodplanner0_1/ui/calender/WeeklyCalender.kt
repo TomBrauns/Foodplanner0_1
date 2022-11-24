@@ -1,41 +1,88 @@
 package com.example.foodplanner0_1.ui.calender
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
 import java.util.*
 
 class WeeklyCalender : Fragment() {
 
-    lateinit var month: TextView
+    lateinit var monthText: TextView
+    lateinit var sunNum: TextView
+    lateinit var monNum: TextView
+    lateinit var tueNum: TextView
+    lateinit var wedNum: TextView
+    lateinit var thurNum: TextView
+    lateinit var friNum: TextView
+    lateinit var satNum: TextView
     private lateinit var adapter: MealsAdapter
     private lateinit var recyclerView: RecyclerView
+    lateinit var backDate: FloatingActionButton
+    lateinit var nextDate: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_weekly_calender, container, false)
-        getMonth(view)
+        weekController(view)
         return view
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun getMonth(view: View) {
-        month = view.findViewById(R.id.monthWeek)
-        val time = Calendar.getInstance().time
-        val formatter = SimpleDateFormat("MMM yyyy")
-        val today = formatter.format(time)
-        month.text = today
+    private fun weekController(view: View) {
+        monthText = view.findViewById(R.id.monthWeek)
+        backDate = view.findViewById(R.id.buttonBack)
+        nextDate = view.findViewById(R.id.buttonNext)
+        sunNum = view.findViewById(R.id.sunNum)
+        monNum = view.findViewById(R.id.monNum)
+        tueNum = view.findViewById(R.id.tueNum)
+        wedNum = view.findViewById(R.id.wedNum)
+        thurNum = view.findViewById(R.id.thurNum)
+        friNum = view.findViewById(R.id.friNum)
+        satNum = view.findViewById(R.id.satNum)
+
+
+        val calendar = Calendar.getInstance();
+        val time = calendar.time
+        val formatter1 = SimpleDateFormat("MMM yyyy")
+        val formatter2 = SimpleDateFormat("E.dd.MMM.yyyy")
+        var month = formatter1.format(time)
+        val today = formatter2.format(time)
+        monthText.text = month
+
+        backDate.setOnClickListener {
+            calendar.add(Calendar.DATE, -7)
+            val updateDate = calendar.time
+            month = formatter1.format(updateDate)
+            monthText.text = month
+            Toast.makeText(activity, "$updateDate", Toast.LENGTH_LONG).show()
+        }
+
+        nextDate.setOnClickListener {
+            calendar.add(Calendar.DATE, +7)
+            var updateDate = calendar.time
+            month = formatter1.format(updateDate)
+            monthText.text = month
+            Toast.makeText(activity, "$updateDate", Toast.LENGTH_LONG).show()
+        }
+
     }
+
 
     private fun fillMeals() {
         val meal1 = DayMeal(

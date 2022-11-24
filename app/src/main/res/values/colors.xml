@@ -8,6 +8,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#FDEEDC</color>
-    <color name="orange">#FFAD60</color>
+
+    <!-- New colors juts to try them-->
+    <color name="teal_1">#26a69a</color>
+    <color name="teal_0">#51b7ae</color>
+    <color name="teal_2">#1a746b</color>
+    <color name="orange1">#ffa726</color>
+    <color name="orange0">#ffb851</color>
+    <color name="orange2">#b2741a</color>
+
 
 </resources>
