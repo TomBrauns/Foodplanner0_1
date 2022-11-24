@@ -7,6 +7,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,11 +71,6 @@ class RecipesListFragment : Fragment() {
         recipesListRecyclerView.layoutManager = LinearLayoutManager(context)
         recipesListRecyclerView.addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
 
-        recipesListHeader = view.findViewById(R.id.recipes_list_header)
-
-        moreRecipesButton = view.findViewById(R.id.more_recipes_button)
-        moreRecipesButton.setOnClickListener(MoreRecipesButtonClickListener())
-
         updateUI()
 
         return view
@@ -84,12 +80,6 @@ class RecipesListFragment : Fragment() {
         val recipes = viewmodel.getMyRecipes()
         adapter = RecipesAdapter(recipes)
         recipesListRecyclerView.adapter = adapter
-
-        if (recipes.size == 1) {
-            recipesListHeader.text = getString(R.string.text_my_recipe)
-        } else {
-            recipesListHeader.text = getString(R.string.text_my_recipes)
-        }
     }
 
     private inner class RecipesHolder(view: View) : RecyclerView.ViewHolder(view),
@@ -117,7 +107,9 @@ class RecipesListFragment : Fragment() {
             recipesIngredientsText.text = this.recipesListItem.ingredients
 
             // Following two lines colourate the Recipes
-            val colorDrawable = ColorDrawable(Color.parseColor(recipesListItem.complexity.v.color))
+            // --> required because background colour
+            // AND text colour is white
+            val colorDrawable = ColorDrawable(Color.GRAY)
             itemView.background = colorDrawable
         }
 
@@ -151,59 +143,4 @@ class RecipesListFragment : Fragment() {
         }
     }
 
-    private inner class MoreRecipesButtonClickListener : View.OnClickListener {
-        override fun onClick(v: View?) {
-            callbacks?.onMoreRecipesButtonSelected()
-        }
-    }
-
 }
-
-
-// Depricated version of the RecipesFragment.kt
-/*  package com.example.foodplanner0_1.ui.recipes
-
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.foodplanner0_1.databinding.FragmentRecipesBinding
-
-// My first version of the page. Resetting the "fragment_recipes"
-// will fix the "textRecipes" function
-// Got to figure out where the actual class is
-
-class RecipesFragment : Fragment() {
-
-    private var _binding: FragmentRecipesBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val recipesViewModel =
-            ViewModelProvider(this).get(RecipesViewModel::class.java)
-
-        _binding = FragmentRecipesBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textRecipes
-        recipesViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-}
-*/

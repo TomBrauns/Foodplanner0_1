@@ -6,7 +6,6 @@ import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
 import com.example.foodplanner0_1.R
-import com.example.foodplanner0_1.ui.recipes.data.RecipesComplexity
 import com.example.foodplanner0_1.ui.recipes.data.RecipesListItem
 
 
@@ -45,7 +44,6 @@ class RecipesNavigationRepository private constructor(){
                     title = recipesJsonObject.string("title") ?: "",
                     description = recipesJsonObject.string("description") ?: "",
                     ingredients = recipesJsonObject.string("ingredients") ?: "",
-                    complexity = RecipesComplexity.valueOf(recipesJsonObject.string("complexity") ?: "without"),
                     imageFileURL = recipesJsonObject.string("image_file_url") ?: ""
                 )
                 recipesCatalog.add(c)

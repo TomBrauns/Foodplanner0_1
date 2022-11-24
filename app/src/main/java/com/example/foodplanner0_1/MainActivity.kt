@@ -8,28 +8,18 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.databinding.ActivityMainBinding
 import com.example.foodplanner0_1.ui.recipes.ui.RecipesListFragment
 import com.example.foodplanner0_1.ui.recipes.viewmodel.RecipesNavigationViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-
-private const val RECIPES_LIST_FRAGMENT = "RecipesListFragment"
-
 class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
-
 {
-
-
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewmodel: RecipesNavigationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // setContentView(R.layout.activity_main)
-
-
 
         viewmodel = ViewModelProvider(this).get(com.example.foodplanner0_1.ui.recipes.viewmodel.RecipesNavigationViewModel::class.java)
 
@@ -49,14 +39,6 @@ class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
             R.id.navigation_shoppingList))  // Implementation of Navbar-Element "shoppinglist"
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        /*
-        val fragment = RecipesListFragment()
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container, fragment, RECIPES_LIST_FRAGMENT)
-            .commit()
-            */
-
     }
 
     override fun onRecipesSelected(recipesId: String) {
@@ -66,7 +48,7 @@ class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
         )
         toast.show()
     }
-
+// Programm Scuffs as soon as I take out onMoreRecipesButtonSelected ... which doesnt even exist anymore xd
     override fun onMoreRecipesButtonSelected() {
         val toast = Toast.makeText(
             getApplication(), "Additional Recipes selected.",

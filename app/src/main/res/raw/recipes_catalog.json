@@ -5,7 +5,6 @@
       "title": "Recipe 1",
       "description": "This will be the first recipe",
       "ingredients": "Beans, Potatoes, Carrots",
-      "complexity": "low",
       "image_file_url": ""
     },
     {
@@ -13,15 +12,13 @@
       "title": "Recipe Numbero 2",
       "description": "This is a pretty simple Recipe to be made like ...",
       "ingredients": "Beans, Potatoes, Carrots",
-      "complexity": "low",
       "image_file_url": ""
     },
     {
       "product_id": "0003",
-      "title": "Donde esta la bibliotheka",
+      "title": "Dónde está la biblioteca",
       "description": "This will be a rather complex recipe to make.",
       "ingredients": "Beans, Potatoes, Carrots",
-      "complexity": "high",
       "image_file_url": ""
     },
     {
@@ -29,7 +26,6 @@
       "title": "4th Recipe",
       "description": "A pretty basic recipe, made in a few more steps",
       "ingredients": "Beans, Potatoes, Carrots",
-      "complexity": "medium",
       "image_file_url": ""
     },
     {
@@ -37,7 +33,6 @@
       "title": "Baked potatoes",
       "description": "A recipe as to how to bake Potatoes in an oven.",
       "ingredients": "Potatoes, Spices",
-      "complexity": "low",
       "image_file_url": ""
     },
     {
@@ -45,7 +40,6 @@
       "title": "Spaghetti Bolognese",
       "description": "Spaghetti made with Bolognese and minced meat ",
       "ingredients": "Spaghetti, Tomatoes, Minced Meat",
-      "complexity": "medium",
       "image_file_url": ""
     },
     {
@@ -53,7 +47,6 @@
       "title": "Fried Rice",
       "description": "Rice fried in a pan with vegetables",
       "ingredients": "Rice, Vegetables",
-      "complexity": "low",
       "image_file_url": ""
     },
     {
@@ -61,7 +54,6 @@
       "title": "Asia Noodles",
       "description": "Finished Noodles that need to be heated in a pan. Pretty straightforward.",
       "ingredients": "Noodles, Water, possible Spices",
-      "complexity": "low",
       "image_file_url": ""
     },
     {
@@ -69,7 +61,6 @@
       "title": "Stew",
       "description": "Spaghetti Bolognese",
       "ingredients": "Spaghetti, Tomatoes, Meat",
-      "complexity": "high",
       "image_file_url": ""
     },
     {
@@ -77,7 +68,6 @@
       "title": "Chicken",
       "description": "Just a nice cooked Chicken",
       "ingredients": "Chicken, Rice, Vegetables",
-      "complexity": "medium",
       "image_file_url": ""
     }
   ]

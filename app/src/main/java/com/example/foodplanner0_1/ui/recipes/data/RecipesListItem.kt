@@ -5,7 +5,6 @@ data class RecipesListItem (
     var title: String = "",
     var description: String = "",
     var ingredients: String = "",
-    var complexity: RecipesComplexity,
     var imageFileURL: String = ""
 ) {
 }
