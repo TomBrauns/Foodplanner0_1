@@ -7,20 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.recipes.ui.RecipesListFragment">
 
-    <!-- Let the Misery Begin  -->
-
-  <!--  <Button
-        android:id="@+id/recipes_list_header"
-        style="@style/recipes_list_header"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
--->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipes_list_recycler_view"
         android:layout_width="0dp"
@@ -43,23 +29,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
-
         app:layout_constraintVertical_bias="0.0" />
-    <!-- Constraints -->
-</androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--
-   <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floating_text_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_calendar_month_24"
-        tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="659dp" />
 
-For Recyclerview once Button is removed
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/recipes_list_header"
--->
+        android:text="@string/fab_text"
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.602"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--app:backgroundTint="" -->

@@ -10,13 +10,4 @@
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
     </style>
-
-
-    <style name="recipes_list_header" parent="navigation_button">
-        <item name="android:focusable">false</item>
-        <item name="android:clickable">false</item>
-    </style>
-
-
-
 </resources>

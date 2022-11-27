@@ -22,17 +22,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.ui.recipes.data.RecipesListItem
 import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.ui.recipes.viewmodel.RecipesNavigationViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-private const val TAG = "RecipesListFragment"
+//Suppressing the deprecated warning for L59: SetHasOptionsMenu(false)
+@Suppress("DEPRECATION")
 
 class RecipesListFragment : Fragment() {
 
-    private lateinit var recipesListHeader: Button
-
     private lateinit var recipesListRecyclerView: RecyclerView
     private var adapter: RecipesAdapter? = null
-
-    private lateinit var moreRecipesButton: Button
 
     // model created by hosting activity
     private val viewmodel: RecipesNavigationViewModel by activityViewModels()
@@ -40,7 +38,7 @@ class RecipesListFragment : Fragment() {
     // required interface for communication with hosting activities
     interface Callbacks {
         fun onRecipesSelected(recipeId: String)
-        fun onMoreRecipesButtonSelected()
+
     }
 
     private var callbacks: Callbacks? = null
@@ -95,6 +93,7 @@ class RecipesListFragment : Fragment() {
         private val recipesButton: Button = itemView.findViewById(R.id.recipes_button)
         init {
             recipesButton.setOnClickListener(this)
+
         }
 
         fun bind(recipesListItem: RecipesListItem) {
@@ -143,4 +142,10 @@ class RecipesListFragment : Fragment() {
         }
     }
 
+
 }
+
+/*
+private val floatingbutton: FloatingActionButton = itemView.findViewById(R.id.floating_text_button)
+
+*/

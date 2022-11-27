@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewmodel = ViewModelProvider(this).get(com.example.foodplanner0_1.ui.recipes.viewmodel.RecipesNavigationViewModel::class.java)
+        viewmodel = ViewModelProvider(this).get(RecipesNavigationViewModel::class.java)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
         val appBarConfiguration = AppBarConfiguration(setOf(
             R.id.navigation_user,           // Implementation of Navbar-Element "User"
             R.id.navigation_calender,       // Implementation of Navbar-Element "Calender"
-            R.id.navigation_addrecipe,      // Implementation of Navbar-Element "Add", although this is surely not a Fragment in the regular way
             R.id.navigation_recipes,        // Implementation of Navbar-Element "Recipes"
             R.id.navigation_shoppingList))  // Implementation of Navbar-Element "shoppinglist"
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -48,13 +47,4 @@ class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
         )
         toast.show()
     }
-// Programm Scuffs as soon as I take out onMoreRecipesButtonSelected ... which doesnt even exist anymore xd
-    override fun onMoreRecipesButtonSelected() {
-        val toast = Toast.makeText(
-            getApplication(), "Additional Recipes selected.",
-            Toast.LENGTH_SHORT
-        )
-        toast.show()
-    }
-
 }
