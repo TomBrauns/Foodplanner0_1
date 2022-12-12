@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.databinding.CardWeeklyBinding
 
 class MealsAdapter (
-    private val meals: List<DayMeal>
+    private val meals: List<DayMeal>,
+    private val clickListener: MealClickListener
 )
     :RecyclerView.Adapter<MealsViewHolder>()
 {
@@ -15,7 +16,7 @@ class MealsAdapter (
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealsViewHolder {
         val from = LayoutInflater.from(parent.context)
         val binding = CardWeeklyBinding.inflate(from,parent, false)
-        return MealsViewHolder(binding)
+        return MealsViewHolder(binding,clickListener)
     }
 
     override fun onBindViewHolder(holder: MealsViewHolder, position: Int) {

@@ -5,6 +5,7 @@ import com.example.foodplanner0_1.databinding.CardWeeklyBinding
 
 class MealsViewHolder (
     private val cardCellBinding: CardWeeklyBinding,
+    private val clickListener: MealClickListener
         )
     :RecyclerView.ViewHolder(cardCellBinding.root)
 {
@@ -14,6 +15,10 @@ class MealsViewHolder (
       cardCellBinding.breakfast.text = meal.breakfast
       cardCellBinding.lunch.text = meal.lunch
       cardCellBinding.dinner.text = meal.dinner
+
+      cardCellBinding.cardView.setOnClickListener{
+          clickListener.onClick(meal)
+      }
 
       }
     }

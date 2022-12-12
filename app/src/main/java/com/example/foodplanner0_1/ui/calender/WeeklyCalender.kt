@@ -149,7 +149,7 @@ class WeeklyCalender : Fragment()
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.mealsRecycle)
         recyclerView.layoutManager = layoutManager
-        adapter = MealsAdapter(mealsList)
+        adapter = MealsAdapter(mealsList,this)
         recyclerView.adapter = adapter
 
     }
