@@ -4,103 +4,83 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardElevation="2dp">
-
+    android:layout_margin="8dp"
+    app:cardElevation="3dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="3dp">
 
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:orientation="horizontal"
-            android:gravity="end">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Date"
-                android:layout_marginLeft="40dp"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            <TableRow
+                android:padding="5dp">
+                <TextView
+                    android:id="@+id/date"
+                    android:text="Date"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
 
-            <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@android:drawable/ic_menu_edit" />
+            <TableRow
+                android:padding="5dp">
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_breakfast_crossant" />
+                <TextView
+                    android:text="Breakfast"
+                    android:textStyle="bold"/>
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/breakfast"
+                    android:layout_weight="2"
+                    android:text="No data"
+                    android:textAlignment="center"/>
+            </TableRow>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginVertical="5dp">
+            <TableRow
+                android:padding="5dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Breakfast"
-                android:layout_marginHorizontal="10dp"
-                android:textStyle="bold"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_lunch_hambur"/>
+                <TextView
+                    android:text="Lunch"
+                    android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/breakfast"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Recepy"
-                android:textAlignment="center"/>
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/lunch"
+                    android:text="Recepy"
+                    android:layout_weight="2"
+                    android:textAlignment="center"/>
+            </TableRow>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginVertical="5dp">
+            <TableRow
+                android:padding="5dp">
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_breakfast_crossant"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dinner"
+                    android:textStyle="bold"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lunch"
-                android:layout_marginHorizontal="10dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/lunch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Recepy"
-                android:textAlignment="center"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginVertical="5dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dinner"
-                android:layout_marginHorizontal="10dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/dinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Recepy"
-                android:textAlignment="center"/>
-        </LinearLayout>
-
+                <TextView
+                    android:id="@+id/dinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Recepy"
+                    android:layout_weight="2"
+                    android:textAlignment="center"/>
+            </TableRow>
+        </TableLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

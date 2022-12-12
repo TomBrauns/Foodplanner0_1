@@ -12,31 +12,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
             android:id="@+id/buttonBack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="Less"
             app:fabSize="mini"
-            app:srcCompat="@drawable/ic_chevron_left"
-            android:contentDescription="Less"/>
+            app:srcCompat="@drawable/ic_chevron_left" />
 
         <TextView
             android:id="@+id/monthWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/activity_horizontal_margin"
-            android:text="MONTH"/>
+            android:text="MONTH" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
             android:id="@+id/buttonNext"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="More"
             app:fabSize="mini"
-            app:srcCompat="@drawable/ic_chevron_right"
-            android:contentDescription="More"/>
+            app:srcCompat="@drawable/ic_chevron_right" />
+
+        <ImageButton
+            android:id="@+id/go_to_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/cardview_light_background"
+            app:srcCompat="@drawable/ic_calendar_month_24" />
 
     </LinearLayout>
 
@@ -166,7 +173,7 @@
         android:id="@+id/mealsRecycle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:itemCount="4"
+        tools:itemCount="5"
         tools:listitem="@layout/card_weekly" />
 
 </LinearLayout>

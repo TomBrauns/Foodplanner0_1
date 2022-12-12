@@ -1,6 +1,7 @@
 package com.example.foodplanner0_1.ui.calender
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -19,7 +20,8 @@ import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.util.*
 
-class WeeklyCalender : Fragment() {
+class WeeklyCalender : Fragment()
+{
 
     lateinit var monthText: TextView
     lateinit var sunNum: TextView
@@ -110,14 +112,14 @@ class WeeklyCalender : Fragment() {
         mealsList.add(meal3)
 
         val meal4 = DayMeal(
-            "Wednesday 16",
+            "Friday 17",
             "Cereal",
             "Meat",
             "Fruit",
         )
         mealsList.add(meal4)
         val meal5 = DayMeal(
-            "Thursday 17",
+            "Friday 17",
             "Cereal",
             "Meat",
             "Fruit",
@@ -147,10 +149,11 @@ class WeeklyCalender : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.mealsRecycle)
         recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
         adapter = MealsAdapter(mealsList)
         recyclerView.adapter = adapter
 
     }
+
+
 
 }
