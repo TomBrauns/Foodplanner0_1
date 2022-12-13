@@ -1,4 +1,4 @@
-package com.example.foodplanner0_1.ui.calender
+package com.example.foodplanner0_1.ui.calender.monthlycalender
 
 import android.annotation.SuppressLint
 import android.app.Activity

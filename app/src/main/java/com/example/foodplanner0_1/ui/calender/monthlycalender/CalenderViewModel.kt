@@ -1,7 +1,5 @@
-package com.example.foodplanner0_1.ui.calender
+package com.example.foodplanner0_1.ui.calender.monthlycalender
 
-import android.widget.CalendarView
-import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

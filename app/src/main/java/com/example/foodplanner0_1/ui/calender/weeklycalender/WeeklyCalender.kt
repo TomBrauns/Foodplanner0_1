@@ -1,8 +1,6 @@
-package com.example.foodplanner0_1.ui.calender
+package com.example.foodplanner0_1.ui.calender.weeklycalender
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
@@ -38,6 +37,9 @@ class WeeklyCalender : Fragment()
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val userViewModel =
+            ViewModelProvider(this).get(WeeklyViewModel::class.java)
+
         val view = inflater.inflate(R.layout.fragment_weekly_calender, container, false)
         weekController(view)
         return view
@@ -149,6 +151,11 @@ class WeeklyCalender : Fragment()
         adapter = MealsAdapter(mealsList)
         recyclerView.adapter = adapter
 
+        adapter.setOnItemClickListener(object : MealsAdapter.MealClickListener{
+            override fun onClick(meal: DayMeal) {
+                Toast.makeText(activity, "hi", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
 

@@ -9,8 +9,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.foodplanner0_1.databinding.ActivityMainBinding
-import com.example.foodplanner0_1.ui.calender.DayMeal
-import com.example.foodplanner0_1.ui.calender.mealsList
 import com.example.foodplanner0_1.ui.recipes.ui.RecipesListFragment
 import com.example.foodplanner0_1.ui.recipes.viewmodel.RecipesNavigationViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
