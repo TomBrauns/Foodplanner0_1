@@ -12,11 +12,6 @@
         android:title="Calender"/>
 
     <item
-        android:id="@+id/navigation_addrecipe"
-        android:icon="@drawable/ic_add_recipe_24"
-        android:title="@string/title_add"/>
-
-    <item
         android:id="@+id/navigation_recipes"
         android:icon="@drawable/ic_recipes_24"
         android:title="@string/title_recipes"/>

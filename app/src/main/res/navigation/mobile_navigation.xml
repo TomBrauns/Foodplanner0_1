@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- This document is used for the fragment navigation -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,14 +20,8 @@
         tools:layout="@layout/fragment_calender"/>
 
     <fragment
-        android:id="@+id/navigation_addrecipe"
-        android:name="com.example.foodplanner0_1.ui.addrecipe.AddRecipeFragment"
-        android:label="@string/title_add"
-        tools:layout="@layout/fragment_addrecipe" />
-
-    <fragment
         android:id="@+id/navigation_recipes"
-        android:name="com.example.foodplanner0_1.ui.recipes.RecipesFragment"
+        android:name="com.example.foodplanner0_1.ui.recipes.ui.RecipesListFragment"
         android:label="@string/title_recipes"
         tools:layout="@layout/fragment_recipes" />
 
@@ -36,3 +32,4 @@
         tools:layout="@layout/fragment_shoppinglist" />
 
 </navigation>
+
