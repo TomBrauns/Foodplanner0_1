@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="3dp">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardElevation="3dp"
+        android:id="@+id/cardView">
+            <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:padding="5dp">
+                <TextView
+                    android:id="@+id/date"
+                    android:text="Date"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:padding="5dp">
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_breakfast_crossant" />
+                <TextView
+                    android:text="Breakfast"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/breakfast"
+                    android:layout_weight="2"
+                    android:text="No data"
+                    android:textAlignment="center"/>
+            </TableRow>
+
+            <TableRow
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_lunch_hambur"/>
+                <TextView
+                    android:text="Lunch"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/lunch"
+                    android:text="Recepy"
+                    android:layout_weight="2"
+                    android:textAlignment="center"/>
+            </TableRow>
+
+            <TableRow
+                android:padding="5dp">
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_breakfast_crossant"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dinner"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/dinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Recepy"
+                    android:layout_weight="2"
+                    android:textAlignment="center"/>
+            </TableRow>
+        </TableLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

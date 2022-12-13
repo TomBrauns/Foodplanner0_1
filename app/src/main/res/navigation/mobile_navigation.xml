@@ -15,9 +15,9 @@
 
     <fragment
         android:id="@+id/navigation_calender"
-        android:name="com.example.foodplanner0_1.ui.calender.CalenderFragment"
-        android:label="@string/title_calender"
-        tools:layout="@layout/fragment_calender" />
+        android:name="com.example.foodplanner0_1.ui.calender.WeeklyCalender"
+        android:label="Calender"
+        tools:layout="@layout/fragment_calender"/>
 
     <fragment
         android:id="@+id/navigation_recipes"
@@ -32,3 +32,4 @@
         tools:layout="@layout/fragment_shoppinglist" />
 
 </navigation>
+
