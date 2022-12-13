@@ -8,16 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
-import java.time.DayOfWeek
 import java.util.*
 
 class WeeklyCalender : Fragment()
@@ -35,6 +32,7 @@ class WeeklyCalender : Fragment()
     private lateinit var recyclerView: RecyclerView
     lateinit var backDate: FloatingActionButton
     lateinit var nextDate: FloatingActionButton
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,14 +75,13 @@ class WeeklyCalender : Fragment()
 
         nextDate.setOnClickListener {
             calendar.add(Calendar.DATE, +7)
-            var updateDate = calendar.time
+            val updateDate = calendar.time
             month = formatter1.format(updateDate)
             monthText.text = month
             Toast.makeText(activity, "$updateDate", Toast.LENGTH_LONG).show()
         }
 
     }
-
 
     private fun fillMeals() {
         val meal1 = DayMeal(
@@ -149,11 +146,10 @@ class WeeklyCalender : Fragment()
         val layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.mealsRecycle)
         recyclerView.layoutManager = layoutManager
-        adapter = MealsAdapter(mealsList,this)
+        adapter = MealsAdapter(mealsList)
         recyclerView.adapter = adapter
 
     }
-
 
 
 }
