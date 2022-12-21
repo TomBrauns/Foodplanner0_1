@@ -21,9 +21,25 @@
 
     <fragment
         android:id="@+id/navigation_recipes"
-        android:name="com.example.foodplanner0_1.ui.recipes.ui.RecipesListFragment"
-        android:label="@string/title_recipes"
-        tools:layout="@layout/fragment_recipes" />
+        android:name="com.example.foodplanner0_1.ui.recipes.ui.RecipeListFragment"
+        android:label="RecipesFragment"
+        tools:layout="@layout/fragment_recipes">
+        <action
+            android:id="@+id/show_recipe_detail"
+            app:destination="@id/recipeDetailFragment" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.example.foodplanner0_1.ui.recipes.RecipesDetailFragment"
+        android:label="RecipesDetailFragment"
+        tools:layout="@layout/fragment_recipe_detail" />
+    <argument
+        android:name="recipesId"
+        app:argType="java.util.UUID" />
+
 
     <fragment
         android:id="@+id/navigation_shoppingList"
@@ -32,3 +48,14 @@
         tools:layout="@layout/fragment_shoppinglist" />
 
 </navigation>
+
+
+    <!--
+
+    <action
+                android:id="@+id/select_date"
+                app:destination="@id/datePickerFragment" />
+
+    -->
+
+    <!--Subfragment for the new page -->

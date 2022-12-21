@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
 
     override fun onRecipesSelected(recipesId: String) {
         val toast = Toast.makeText(
-            getApplication(), "Recipe selected.",
+            application, "Recipe selected.",
             Toast.LENGTH_SHORT
         )
         toast.show()

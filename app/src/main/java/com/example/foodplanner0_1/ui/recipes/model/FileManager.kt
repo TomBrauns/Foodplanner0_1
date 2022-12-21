@@ -3,6 +3,8 @@ package com.example.foodplanner0_1.ui.recipes.model
 import android.content.Context
 import java.io.InputStream
 
+//Obsolote
+
 class FileManager private constructor(val appContext: Context) {
 
     companion object {

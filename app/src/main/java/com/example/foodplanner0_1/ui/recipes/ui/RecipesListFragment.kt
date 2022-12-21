@@ -7,12 +7,12 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.provider.CalendarContract.Colors
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -23,9 +23,10 @@ import com.example.foodplanner0_1.ui.recipes.data.RecipesListItem
 import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.ui.recipes.viewmodel.RecipesNavigationViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 
 //Suppressing the deprecated warning for L59: SetHasOptionsMenu(false)
-@Suppress("DEPRECATION")
+
 
 class RecipesListFragment : Fragment() {
 
@@ -59,7 +60,8 @@ class RecipesListFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
@@ -75,7 +77,8 @@ class RecipesListFragment : Fragment() {
     }
 
     private fun updateUI() {
-        val recipes = viewmodel.getMyRecipes()
+        val recipes = viewmodel.getRecipes()
+
         adapter = RecipesAdapter(recipes)
         recipesListRecyclerView.adapter = adapter
     }
@@ -122,7 +125,9 @@ class RecipesListFragment : Fragment() {
     private inner class RecipesAdapter(var logovidListItems: List<RecipesListItem>) :
         RecyclerView.Adapter<RecipesHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesHolder {
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int): RecipesHolder {
             val itemView = layoutInflater.inflate(R.layout.recipes_list_item, parent, false)
 
             val layoutParams: ViewGroup.LayoutParams = itemView.getLayoutParams()
@@ -144,8 +149,3 @@ class RecipesListFragment : Fragment() {
 
 
 }
-
-/*
-private val floatingbutton: FloatingActionButton = itemView.findViewById(R.id.floating_text_button)
-
-*/

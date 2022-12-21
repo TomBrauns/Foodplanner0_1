@@ -8,7 +8,7 @@ import com.beust.klaxon.Parser
 import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.ui.recipes.data.RecipesListItem
 
-
+//Obsolete
 class RecipesNavigationRepository private constructor(){
 
     lateinit private var fileManager: FileManager
@@ -32,6 +32,7 @@ class RecipesNavigationRepository private constructor(){
             return INSTANCE
                 ?: throw IllegalStateException("LogovidNavigationRepository not initialized.")
         }
+
     }
 
     private fun processRecipesJsonFile(jo: JsonObject) {
@@ -60,5 +61,6 @@ class RecipesNavigationRepository private constructor(){
 
         processRecipesJsonFile(jo)
     }
+
 
 }
