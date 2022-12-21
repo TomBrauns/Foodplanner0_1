@@ -1,6 +1,7 @@
 package com.example.foodplanner0_1.ui.recipes
 
 import androidx.fragment.app.Fragment
+/*
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
@@ -23,11 +24,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 
 import com.example.foodplanner0_1.databinding.FragmentRecipesDetailBinding
-import com.example.foodplanner0_1.ui.recipes.data.RecipesListItem
+import com.example.foodplanner0_1.ui.recipes.data.RecipeListItem
 import kotlinx.coroutines.launch
 import java.io.File
 
-
+*/
 class RecipesDetailFragment : Fragment() {}
 /*
 
