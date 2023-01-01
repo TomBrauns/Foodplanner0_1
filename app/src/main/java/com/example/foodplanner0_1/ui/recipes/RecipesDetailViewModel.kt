@@ -3,8 +3,6 @@ package com.example.foodplanner0_1.ui.recipes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.foodplanner0_1.ui.recipes.data.RecipesListItem
-import com.example.foodplanner0_1.ui.recipes.model.RecipesNavigationRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,7 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-class RecipesDetailViewModel(recipesId: UUID) : ViewModel() {}
+class RecipesDetailViewModel(recipeId: UUID) : ViewModel() {}
 /*
     private val recipesRepository = RecipesNavigationRepository.get()
 

@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodplanner0_1.databinding.FragmentRecipesBinding
 import com.example.foodplanner0_1.ui.recipes.viewmodel.RecipeViewModel
 import kotlinx.coroutines.launch
-import com.example.foodplanner0_1.ui.recipes.RecipesDetailFragment
-import com.example.foodplanner0_1.ui.recipes.RecipesDetailViewModel
 
 
 private const val TAG = "RecipeListFragment"
@@ -55,9 +53,7 @@ class RecipeListFragment : Fragment() {
                     binding.recipesListRecyclerView.adapter =
                         RecipeListAdapter(recipes) { recipeId ->
                             findNavController().navigate(
-                                RecipeFragmentDirections.showRecipeDetail(recipeId)
-
-
+                                RecipeListFragmentDirections.showRecipeDetail(recipeId)
 
 
                             )

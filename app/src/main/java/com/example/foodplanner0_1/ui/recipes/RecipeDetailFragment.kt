@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 */
-class RecipesDetailFragment : Fragment() {}
+class RecipeDetailFragment : Fragment() {}
 /*
 
 
