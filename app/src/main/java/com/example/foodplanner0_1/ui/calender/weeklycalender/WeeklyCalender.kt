@@ -9,12 +9,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
+import com.example.foodplanner0_1.ui.calender.monthlycalender.CalenderFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,8 +27,9 @@ class WeeklyCalender : Fragment()
     lateinit var daysNumber: ArrayList<TextView>
     lateinit var calendar : Calendar
     lateinit var monthText: TextView
-    val formatter1 = SimpleDateFormat("MMM yyyy")
-    val formatter2 = SimpleDateFormat("E.dd.MMM.yyyy")
+    lateinit var monthlyViewButton : ImageButton
+    val monthYearFormatter = SimpleDateFormat("MMM yyyy", Locale.ENGLISH)
+    val formatter2 = SimpleDateFormat("E.dd.MMM.yyyy", Locale.ENGLISH)
     val nameWeekFormatter = SimpleDateFormat("EEEE", Locale.ENGLISH)
     private lateinit var adapter: MealsAdapter
     private lateinit var recyclerView: RecyclerView
@@ -58,6 +61,7 @@ class WeeklyCalender : Fragment()
         monthText = view.findViewById(R.id.monthWeek)
         backDate = view.findViewById(R.id.buttonBack)
         nextDate = view.findViewById(R.id.buttonNext)
+        monthlyViewButton = view.findViewById(R.id.goToMonth)
 
         calendar = Calendar.getInstance()
         // Calendar set to first sunday
@@ -75,6 +79,15 @@ class WeeklyCalender : Fragment()
             updateWeek()
         }
 
+        monthlyViewButton.setOnClickListener {
+            val newFragment = CalenderFragment.newInstance(calendar.get(Calendar.MONTH,), calendar.get(Calendar.YEAR))
+
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.nav_host_fragment_activity_main, newFragment)
+                .commit()
+
+        }
     }
 
     private fun updateWeek(){
@@ -96,9 +109,9 @@ class WeeklyCalender : Fragment()
             itCalendar.add(Calendar.DATE, 1)
         }
         adapter.notifyItemRangeInserted(0, 7)
-        monthText.text = formatter1.format(calendar.time)
+        monthText.text = monthYearFormatter.format(calendar.time)
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //fillMeals()
@@ -116,6 +129,7 @@ class WeeklyCalender : Fragment()
 
         updateWeek()
     }
+
 
 
 }
