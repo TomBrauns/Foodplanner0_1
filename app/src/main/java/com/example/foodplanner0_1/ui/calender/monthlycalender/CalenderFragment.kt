@@ -10,6 +10,7 @@ import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
+import com.example.foodplanner0_1.ui.calender.dailycalender.DailyCalender
 import com.example.foodplanner0_1.ui.calender.weeklycalender.WeeklyCalender
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
@@ -25,7 +26,7 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
     lateinit var calendar : Calendar
     lateinit var monthText: TextView
     lateinit var weeklyViewButton : ImageButton
-    val monthYearFormatter = SimpleDateFormat("MMM yyyy", Locale.ENGLISH)
+    private val monthYearFormatter = SimpleDateFormat("MMM yyyy", Locale.ENGLISH)
     private lateinit var backDate: FloatingActionButton
     private lateinit var nextDate: FloatingActionButton
     private lateinit var calendarRecyclerView: RecyclerView
@@ -49,7 +50,6 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_calender, container, false)
-
 
         monthText = view.findViewById(R.id.monthName)
         backDate = view.findViewById(R.id.buttonBackMonth)
@@ -81,6 +81,7 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
             parentFragmentManager
                 .beginTransaction()
                 .replace(R.id.nav_host_fragment_activity_main, WeeklyCalender())
+                .addToBackStack(null)
                 .commit()
 
         }
@@ -146,7 +147,18 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
     }
 
     override fun onItemClick(item: DayCellModel) {
-        Toast.makeText(context, "${SimpleDateFormat("E.dd.MMM.yyyy", Locale.ENGLISH).format(item.day!!.time)} selected", Toast.LENGTH_LONG).show()
+        //Toast.makeText(context, "${SimpleDateFormat("E.dd.MMM.yyyy", Locale.ENGLISH).format(item.day!!.time)} selected", Toast.LENGTH_LONG).show()
+        val day = item.day!!.get(Calendar.DAY_OF_MONTH)
+        val month = item.day!!.get(Calendar.MONTH)
+        val year = item.day!!.get(Calendar.YEAR)
+
+        val dailyViewFragment = DailyCalender.newInstance(day, month, year)
+
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.nav_host_fragment_activity_main, dailyViewFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
 }

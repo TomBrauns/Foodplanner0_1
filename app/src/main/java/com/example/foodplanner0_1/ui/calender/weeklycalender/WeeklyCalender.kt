@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
+import com.example.foodplanner0_1.ui.calender.dailycalender.DailyCalender
 import com.example.foodplanner0_1.ui.calender.monthlycalender.CalenderFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
@@ -26,10 +27,10 @@ class WeeklyCalender : Fragment()
     lateinit var daysNumber: ArrayList<TextView>
     lateinit var calendar : Calendar
     lateinit var monthText: TextView
-    lateinit var monthlyViewButton : ImageButton
-    val monthYearFormatter = SimpleDateFormat("MMM yyyy", Locale.ENGLISH)
+    private lateinit var monthlyViewButton : ImageButton
+    private val monthYearFormatter = SimpleDateFormat("MMM yyyy", Locale.ENGLISH)
     val formatter2 = SimpleDateFormat("E.dd.MMM.yyyy", Locale.ENGLISH)
-    val nameWeekFormatter = SimpleDateFormat("EEEE", Locale.ENGLISH)
+    private val nameWeekFormatter = SimpleDateFormat("EEEE", Locale.ENGLISH)
     private lateinit var adapter: MealsAdapter
     private lateinit var recyclerView: RecyclerView
     lateinit var backDate: FloatingActionButton
@@ -84,6 +85,7 @@ class WeeklyCalender : Fragment()
             parentFragmentManager
                 .beginTransaction()
                 .replace(R.id.nav_host_fragment_activity_main, newFragment)
+                .addToBackStack(null)
                 .commit()
 
         }
@@ -122,7 +124,18 @@ class WeeklyCalender : Fragment()
 
         adapter.setOnItemClickListener(object : MealsAdapter.MealClickListener{
             override fun onClick(meal: DayMeal) {
-                Toast.makeText(activity, "hi", Toast.LENGTH_LONG).show()
+                val day = meal.date.split(" ").last().toInt()
+                val month = calendar.get(Calendar.MONTH)
+                val year = calendar.get(Calendar.YEAR)
+
+                val dailyViewFragment = DailyCalender.newInstance(day, month, year)
+
+                parentFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment_activity_main, dailyViewFragment)
+                    .addToBackStack(null)
+                    .commit()
+                //Toast.makeText(activity, "hi ${day}", Toast.LENGTH_LONG).show()
             }
         })
 

@@ -20,10 +20,10 @@ class CalendarCellAdapter(
 ) : RecyclerView.Adapter<CalendarCellAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val dayNumber = itemView.findViewById<TextView>(R.id.cellDayText)
-        val breakfastIcon = itemView.findViewById<ImageView>(R.id.breakfastCell)
-        val lunchIcon = itemView.findViewById<ImageView>(R.id.lunchCell)
-        val dinnerIcon = itemView.findViewById<ImageView>(R.id.dinnerCell)
+        val dayNumber: TextView = itemView.findViewById(R.id.cellDayText)
+        val breakfastIcon: ImageView = itemView.findViewById(R.id.breakfastCell)
+        val lunchIcon: ImageView = itemView.findViewById(R.id.lunchCell)
+        val dinnerIcon: ImageView = itemView.findViewById(R.id.dinnerCell)
     }
 
     interface OnCellListener{
@@ -42,7 +42,7 @@ class CalendarCellAdapter(
         icon.setColorFilter(
             ContextCompat.getColor(
                 context,
-                if(isSet) R.color.color_primary else  R.color.grey_light
+                if(isSet) R.color.teal_700 else  R.color.grey_light
             )
         )
     }
@@ -63,7 +63,7 @@ class CalendarCellAdapter(
         holder.dayNumber.text = item.day!!.get(Calendar.DAY_OF_MONTH).toString()
         setIconColor(holder.breakfastIcon, item.hasBreakfast)
         setIconColor(holder.lunchIcon, item.hasLunch)
-        setIconColor(holder.breakfastIcon, item.hasDinner)
+        setIconColor(holder.dinnerIcon, item.hasDinner)
     }
 
     override fun getItemCount(): Int {
