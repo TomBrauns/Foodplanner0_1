@@ -3,14 +3,15 @@
 
     <string name="title_user"> User </string>   <!-- -->
     <string name="title_calender"> Calender </string>
+
     <string name="title_recipes"> Recipes </string>
-    <string name="text_my_recipe"> My recipe </string>
+        <string name="text_my_recipe">My recipe</string>
+        <string name="fab_text">Show additional recipes</string>
 
 
     <string name="title_shoppingList"> Shopping </string>
+
     <string name="recipe_ingredients">Ingredients:</string>
     <string name="recipes_description">Description:</string>
-    <string name="fab_text">Text</string>
-
 
 </resources>
