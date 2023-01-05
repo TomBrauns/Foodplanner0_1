@@ -10,6 +10,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.MainActivity
 import com.example.foodplanner0_1.R
 import com.google.android.material.snackbar.Snackbar
@@ -22,7 +24,7 @@ private const val DAY_PARAM = "dayParam"
 private const val MONTH_PARAM = "monthParam"
 private const val YEAR_PARAM = "yearParam"
 
-class DailyCalender : Fragment() {
+class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
     private var day : Int? = null
     private var month : Int? = null
     private var year : Int? = null
@@ -31,10 +33,12 @@ class DailyCalender : Fragment() {
     private lateinit var dayNumber : TextView
     private lateinit var monthYear : TextView
     private lateinit var saveMeal : Button
-    private lateinit var breakfastSpinner : Spinner
 
     private val monthYearFormatter = SimpleDateFormat("MMMM yyyy", Locale.ENGLISH)
     private val nameWeekFormatter = SimpleDateFormat("EEEE", Locale.ENGLISH)
+
+    private lateinit var adapter : DailyMealAdapter
+    private lateinit var mealRecylerView : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +58,7 @@ class DailyCalender : Fragment() {
         dayNumber = view.findViewById(R.id.dayNumberDaily)
         monthYear = view.findViewById(R.id.monthYearDaily)
         saveMeal = view.findViewById(R.id.saveDaily)
-        breakfastSpinner = view.findViewById(R.id.breakfastSpinner)
+        mealRecylerView = view.findViewById(R.id.mealsRecyclerView)
 
         calendar = Calendar.getInstance()
         calendar.set(Calendar.DAY_OF_MONTH, day?: 1)
@@ -76,9 +80,20 @@ class DailyCalender : Fragment() {
         for(i in 1..200){
             foods.add("Food " + i)
         }
-        val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, foods)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        breakfastSpinner.adapter = adapter
+
+        val icons = listOf(R.drawable.ic_breakfast_crossant, R.drawable.ic_lunch_hambur, R.drawable.ic_baseline_cookie_24)
+        val names = listOf("Breakfast", "Lunch", "Dinner")
+        val mealItems = ArrayList<DailyMealModel>()
+
+        icons.forEachIndexed { index, icon ->
+            val item = DailyMealModel(names[index], icon, null, foods)
+            mealItems.add(item)
+        }
+
+        val layoutManager = LinearLayoutManager(context)
+        mealRecylerView.layoutManager = layoutManager
+        adapter = DailyMealAdapter(mealItems, requireContext(), this)
+        mealRecylerView.adapter = adapter
 
         // Inflate the layout for this fragment
         return view
@@ -94,5 +109,13 @@ class DailyCalender : Fragment() {
                     putInt(YEAR_PARAM, year)
                 }
             }
+    }
+
+    override fun onRecipeSelected(item: DailyMealModel) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onShoppingListSelected(item: DailyMealModel) {
+        TODO("Not yet implemented")
     }
 }
