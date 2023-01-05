@@ -1,18 +1,16 @@
 package com.example.foodplanner0_1.ui.calender.dailycalender
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.foodplanner0_1.MainActivity
 import com.example.foodplanner0_1.R
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
@@ -70,7 +68,7 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
 
         saveMeal.setOnClickListener{
             //(activity as MainActivity).clickBottomItem(0)
-            Snackbar.make(view, "Meals updated", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(view, "Meals updated (not really)", Snackbar.LENGTH_LONG).show()
             Executors.newSingleThreadScheduledExecutor().schedule({
                 parentFragmentManager.popBackStack()
                 }, 600, TimeUnit.MILLISECONDS)
@@ -80,13 +78,15 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
         for(i in 1..200){
             foods.add("Food " + i)
         }
+        foods.add(MealConstants.NO_SELECTION_MEAL)
 
         val icons = listOf(R.drawable.ic_breakfast_crossant, R.drawable.ic_lunch_hambur, R.drawable.ic_baseline_cookie_24)
         val names = listOf("Breakfast", "Lunch", "Dinner")
+        val defaults = listOf("Food 1", MealConstants.NO_SELECTION_MEAL, "Food 22")
         val mealItems = ArrayList<DailyMealModel>()
 
         icons.forEachIndexed { index, icon ->
-            val item = DailyMealModel(names[index], icon, null, foods)
+            val item = DailyMealModel(names[index], icon, defaults[index], foods)
             mealItems.add(item)
         }
 
@@ -111,11 +111,27 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
             }
     }
 
-    override fun onRecipeSelected(item: DailyMealModel) {
-        TODO("Not yet implemented")
+    override fun onRecipeSelected(item: DailyMealModel, controls: DailyMealAdapter.ViewHolder) {
+        if(controls.mealSpinner.selectedItem.toString() == MealConstants.NO_SELECTION_MEAL){
+            Snackbar.make(saveMeal, "No meal selected", Snackbar.LENGTH_LONG).show()
+            return
+        }
+        Toast.makeText(context, "Recipe view not implemented", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onShoppingListSelected(item: DailyMealModel) {
-        TODO("Not yet implemented")
+    override fun onShoppingListSelected(item: DailyMealModel, controls: DailyMealAdapter.ViewHolder) {
+        if(controls.mealSpinner.selectedItem.toString() == MealConstants.NO_SELECTION_MEAL){
+            Snackbar.make(saveMeal, "No meal selected", Snackbar.LENGTH_LONG).show()
+            return
+        }
+        AlertDialog.Builder(requireContext())
+            .setMessage("Add ingredients to shopping list?")
+            .setPositiveButton("Yes"){ dialog, id ->
+                Toast.makeText(context, "Added to shopping list (not really)", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("No"){dialog, id ->
+                dialog.dismiss()
+            }.create()
+            .show()
     }
 }

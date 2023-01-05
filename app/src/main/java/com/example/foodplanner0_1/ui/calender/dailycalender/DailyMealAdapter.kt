@@ -26,8 +26,8 @@ class DailyMealAdapter (
     }
 
     interface OnMealListener{
-        fun onRecipeSelected(item: DailyMealModel)
-        fun onShoppingListSelected(item: DailyMealModel)
+        fun onRecipeSelected(item: DailyMealModel, controls: DailyMealAdapter.ViewHolder)
+        fun onShoppingListSelected(item: DailyMealModel, controls : DailyMealAdapter.ViewHolder)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,12 +45,14 @@ class DailyMealAdapter (
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         holder.mealSpinner.adapter = adapter
 
+        holder.mealSpinner.setSelection(item.meals.indexOf(item.mealSelected))
+
         holder.addShopping.setOnClickListener(){
-            listener.onShoppingListSelected(item)
+            listener.onShoppingListSelected(item, holder)
         }
 
         holder.seeRecipe.setOnClickListener(){
-            listener.onRecipeSelected(item)
+            listener.onRecipeSelected(item, holder)
         }
     }
 
