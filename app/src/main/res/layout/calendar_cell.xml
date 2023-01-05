@@ -37,6 +37,6 @@
             android:layout_height="18sp"
             android:id="@+id/dinnerCell"
             app:tint="@color/grey_light"
-            android:src="@drawable/ic_breakfast_crossant" />
+            android:src="@drawable/ic_baseline_cookie_24" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
