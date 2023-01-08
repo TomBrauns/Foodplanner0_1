@@ -8,7 +8,7 @@
     tools:context=".ui.recipes.RecipeDetailFragment">
 
     <TextView
-        android:id="@+id/recipes_label"
+        android:id="@+id/recipe_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:elevation="5dp"
@@ -25,22 +25,64 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/recipes_image"
-        android:layout_width="184dp"
-        android:layout_height="163dp"
+        android:id="@+id/recipe_image"
+        android:layout_width="112dp"
+        android:layout_height="123dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:elevation="5dp"
         android:scaleType="centerInside"
         android:src="@drawable/android"
-        app:layout_constraintEnd_toStartOf="@id/recipes_description"
+        app:layout_constraintEnd_toStartOf="@id/recipe_description"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recipes_label"
+        app:layout_constraintTop_toBottomOf="@id/recipe_label"
         app:layout_constraintWidth_percent="0.25" />
 
     <TextView
-        android:id="@+id/recipes_description_caption"
+        android:id="@+id/recipe_effort_caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="656dp"
+        android:elevation="5dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:paddingTop="2dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="0dp"
+        android:text="@string/recipe_effort"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/recipe_ingredients_caption"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_label"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/recipe_effort"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:minLines="1"
+        android:paddingLeft="10dp"
+        android:paddingTop="2dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="0dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/recipe_ingredients_caption"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_effort_caption"
+        app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/recipe_description_caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:elevation="5dp"
@@ -50,17 +92,17 @@
         android:paddingTop="2dp"
         android:paddingRight="10dp"
         android:paddingBottom="0dp"
-        android:text="@string/recipes_description"
+        android:text="@string/recipe_description"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/recipes_image"
-        app:layout_constraintTop_toBottomOf="@id/recipes_label"
-        app:layout_constraintVertical_bias="0.005" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_image"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/recipes_description"
+        android:id="@+id/recipe_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:elevation="5dp"
@@ -74,18 +116,19 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/recipes_image"
-        app:layout_constraintTop_toBottomOf="@id/recipes_label"
-        app:layout_constraintVertical_bias="0.036" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_description_caption"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/recipes_ingredients_caption"
+        android:id="@+id/recipe_ingredients_caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:elevation="2dp"
         android:ellipsize="end"
-        android:minLines="1"
         android:maxLines="1"
+        android:minLines="1"
         android:paddingLeft="10dp"
         android:paddingTop="2dp"
         android:paddingRight="10dp"
@@ -95,28 +138,30 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recipes_image"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintStart_toEndOf="@+id/recipe_image"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_label"
+        app:layout_constraintVertical_bias="0.062" />
 
     <TextView
-        android:id="@+id/recipes_ingredients"
+        android:id="@+id/recipe_ingredients"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:elevation="5dp"
-        android:ellipsize="end"
 
+        android:ellipsize="end"
         android:minLines="2"
         android:paddingLeft="10dp"
         android:paddingTop="2dp"
         android:paddingRight="10dp"
         android:paddingBottom="0dp"
-        android:textColor="@color/white"
 
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/recipe_description_caption"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/recipes_image"
-        app:layout_constraintTop_toBottomOf="@id/recipes_ingredients_caption"
-        />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/recipe_image"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_ingredients_caption"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

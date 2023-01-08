@@ -9,6 +9,7 @@ data class Recipe(
     @PrimaryKey val id: UUID,
     var title: String,
     var description: String = "",
+    var effort: String = "",
     var ingredients: String = "",
     var imageFileURL: String? = null
 )

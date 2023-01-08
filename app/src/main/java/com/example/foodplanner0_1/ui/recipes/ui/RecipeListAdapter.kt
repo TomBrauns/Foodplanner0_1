@@ -17,7 +17,8 @@ class RecipeHolder(
     fun bind(recipe: Recipe, onRecipeClicked: (recipeId: UUID) -> Unit) {
 
         binding.recipesLabel.text = recipe.title
-        binding.recipesDescription.text = recipe.description
+        binding.recipeEffort.text = recipe.effort // This is the new element
+        //binding.recipesDescription.text = recipe.description (This does not exist in this Fragment ( or shouldnt, hard to test without a working project ... :D )
         binding.recipesIngredients.text = recipe.ingredients
 
         itemView.background = ColorDrawable(Color.GRAY)

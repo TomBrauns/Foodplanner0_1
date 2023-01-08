@@ -3,6 +3,7 @@
     {
       "product_id": "0001",
       "title": "Recipe 1",
+      "effort": "10 minutes",
       "description": "This will be the first recipe",
       "ingredients": "Beans, Potatoes, Carrots",
       "image_file_url": ""
@@ -10,6 +11,7 @@
     {
       "product_id": "0002",
       "title": "Recipe Numbero 2",
+      "effort": "10 minutes",
       "description": "This is a pretty simple Recipe to be made like ...",
       "ingredients": "Beans, Potatoes, Carrots",
       "image_file_url": ""
@@ -17,6 +19,7 @@
     {
       "product_id": "0003",
       "title": "Dónde está la biblioteca",
+      "effort": "10 minutes",
       "description": "This will be a rather complex recipe to make.",
       "ingredients": "Beans, Potatoes, Carrots",
       "image_file_url": ""
@@ -24,6 +27,7 @@
     {
       "product_id": "0004",
       "title": "4th Recipe",
+      "effort": "10 minutes",
       "description": "A pretty basic recipe, made in a few more steps",
       "ingredients": "Beans, Potatoes, Carrots",
       "image_file_url": ""
@@ -31,6 +35,7 @@
     {
       "product_id": "0005",
       "title": "Baked potatoes",
+      "effort": "10 minutes",
       "description": "A recipe as to how to bake Potatoes in an oven.",
       "ingredients": "Potatoes, Spices",
       "image_file_url": ""
@@ -38,6 +43,7 @@
     {
       "product_id": "0006",
       "title": "Spaghetti Bolognese",
+      "effort": "10 minutes",
       "description": "Spaghetti made with Bolognese and minced meat ",
       "ingredients": "Spaghetti, Tomatoes, Minced Meat",
       "image_file_url": ""
@@ -45,6 +51,7 @@
     {
       "product_id": "0007",
       "title": "Fried Rice",
+      "effort": "10 minutes",
       "description": "Rice fried in a pan with vegetables",
       "ingredients": "Rice, Vegetables",
       "image_file_url": ""
@@ -52,6 +59,7 @@
     {
       "product_id": "0008",
       "title": "Asia Noodles",
+      "effort": "10 minutes",
       "description": "Finished Noodles that need to be heated in a pan. Pretty straightforward.",
       "ingredients": "Noodles, Water, possible Spices",
       "image_file_url": ""
@@ -59,6 +67,7 @@
     {
       "product_id": "0009",
       "title": "Stew",
+      "effort": "10 minutes",
       "description": "Spaghetti Bolognese",
       "ingredients": "Spaghetti, Tomatoes, Meat",
       "image_file_url": ""
@@ -66,6 +75,7 @@
     {
       "product_id": "0010",
       "title": "Chicken",
+      "effort": "10 minutes",
       "description": "Just a nice cooked Chicken",
       "ingredients": "Chicken, Rice, Vegetables",
       "image_file_url": ""

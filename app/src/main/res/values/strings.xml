@@ -12,6 +12,7 @@
     <string name="title_shoppingList"> Shopping </string>
 
     <string name="recipe_ingredients">Ingredients:</string>
-    <string name="recipes_description">Description:</string>
+    <string name="recipe_description">Description:</string>
+    <string name="recipe_effort">Time to make:</string>
 
 </resources>
