@@ -1,7 +1,6 @@
 package com.example.foodplanner0_1.ui.recipes.model
 
 import android.content.Context
-import androidx.room.Room
 import com.example.foodplanner0_1.ui.recipes.data.Recipe
 import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -9,15 +8,12 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
-private const val DATABASE_NAME = "recipe-database"
-
 
 class RecipeRepository private constructor(
     context: Context, private val coroutineScope: CoroutineScope = GlobalScope
 ) {
-    private val database: RecipeDatabase = Room.databaseBuilder(
-        context.applicationContext, RecipeDatabase::class.java, DATABASE_NAME
-    ).build()
+    private val database: RecipeDatabase = RecipeDatabase.get()
+
 
     //Functions that the Database can actually work with
     fun getRecipes(): Flow<List<Recipe>> = database.recipeDao().getRecipes()
@@ -33,6 +29,7 @@ class RecipeRepository private constructor(
 
         fun initialize(context: Context) {
             if (INSTANCE == null) {
+                RecipeDatabase.initialize(context)
                 INSTANCE = RecipeRepository(context)
             }
         }

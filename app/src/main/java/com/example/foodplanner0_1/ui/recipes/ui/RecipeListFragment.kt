@@ -12,8 +12,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodplanner0_1.databinding.FragmentRecipesBinding
+import com.example.foodplanner0_1.ui.recipes.data.Recipe
+import com.example.foodplanner0_1.ui.recipes.model.RecipeRepository
 import com.example.foodplanner0_1.ui.recipes.viewmodel.RecipeViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 private const val TAG = "RecipeListFragment"
@@ -54,8 +57,6 @@ class RecipeListFragment : Fragment() {
                         RecipeListAdapter(recipes) { recipeId ->
                             findNavController().navigate(
                                 RecipeListFragmentDirections.showRecipeDetail(recipeId)
-
-
                             )
                         }
                 }
@@ -69,4 +70,3 @@ class RecipeListFragment : Fragment() {
     }
 
 }
-// Navigation_Calender.showRecipeDetail(recipeId)

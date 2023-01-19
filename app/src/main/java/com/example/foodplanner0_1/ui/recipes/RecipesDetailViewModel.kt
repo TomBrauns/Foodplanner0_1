@@ -10,8 +10,21 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-class RecipesDetailViewModel(recipeId: UUID) : ViewModel() {}
-/*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+
+
+class RecipesDetailViewModel(recipeId: UUID) : ViewModel() {
+
+    private val _text = MutableLiveData<String>().apply {
+        value = "This will be a Detailed Recipe" //Actual input on the tab
+    }
+    val text: LiveData<String> = _text
+
+
+}
+/*class RecipesDetailViewModel(recipeId: UUID) : ViewModel() {}
+
     private val recipesRepository = RecipesNavigationRepository.get()
 
     private val _recipes: MutableStateFlow<RecipesListItem?> = MutableStateFlow(null)

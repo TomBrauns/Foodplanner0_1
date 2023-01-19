@@ -114,7 +114,7 @@
         android:elevation="5dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:minLines="1"
+        android:minLines="2"
         android:paddingLeft="10dp"
         android:paddingTop="2dp"
         android:paddingRight="10dp"
@@ -124,7 +124,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/recipes_image"
-        app:layout_constraintTop_toBottomOf="@id/recipe_effort"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/recipes_ingredients_caption"
+        app:layout_constraintVertical_bias="0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
