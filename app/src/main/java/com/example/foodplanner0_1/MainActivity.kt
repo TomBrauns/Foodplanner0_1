@@ -9,19 +9,15 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.foodplanner0_1.databinding.ActivityMainBinding
-import com.example.foodplanner0_1.ui.recipes.ui.RecipesListFragment
-import com.example.foodplanner0_1.ui.recipes.viewmodel.RecipesNavigationViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
+class MainActivity : AppCompatActivity()
 {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewmodel: RecipesNavigationViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewmodel = ViewModelProvider(this).get(RecipesNavigationViewModel::class.java)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -40,11 +36,4 @@ class MainActivity : AppCompatActivity(), RecipesListFragment.Callbacks
         navView.setupWithNavController(navController)
     }
 
-    override fun onRecipesSelected(recipesId: String) {
-        val toast = Toast.makeText(
-            getApplication(), "Recipe selected.",
-            Toast.LENGTH_SHORT
-        )
-        toast.show()
-    }
 }
