@@ -1,4 +1,4 @@
-package com.example.foodplanner0_1.ui.calender
+package com.example.foodplanner0_1.ui.calender.weeklycalender
 
 var mealsList = mutableListOf<DayMeal>()
 

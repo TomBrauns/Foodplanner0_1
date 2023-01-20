@@ -65,7 +65,8 @@
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_breakfast_crossant"/>
+                    android:src="@drawable/ic_baseline_cookie_24"
+                    app:tint="@color/gray_light" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

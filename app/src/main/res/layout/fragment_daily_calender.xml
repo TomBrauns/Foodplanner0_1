@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="8"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="15dp"
+        android:layout_weight="7"
+        android:paddingVertical="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:id="@+id/dayNumberDaily"
+            android:textColor="@color/gray_bold"
+            android:hint="Day #Number" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:id="@+id/monthYearDaily"
+            android:textColor="@color/gray_light"
+            android:hint="Month #Year" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/mealsRecyclerView">
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_height="0dp">
+
+        <Button
+            android:id="@+id/saveDaily"
+            android:paddingHorizontal="30sp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/teal_700"
+            android:layout_width="wrap_content"
+            android:text="@string/save_meals">
+        </Button>
+
+    </LinearLayout>
+</LinearLayout>
