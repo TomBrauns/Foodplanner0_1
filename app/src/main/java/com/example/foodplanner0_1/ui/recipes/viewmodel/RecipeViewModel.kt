@@ -18,11 +18,11 @@ class RecipeViewModel : ViewModel() {
         get() = _recipes.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            recipeRepository.getRecipes().collect {
-                _recipes.value = it
-            }
-        }
+//        viewModelScope.launch {
+//            recipeRepository.getRecipes().collect {
+//                _recipes.value = it
+//            }
+//        }
     }
 
     suspend fun addRecipe(recipe: Recipe) {

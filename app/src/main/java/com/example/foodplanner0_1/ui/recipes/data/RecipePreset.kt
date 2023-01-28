@@ -50,7 +50,8 @@ class RecipePreset (private val context: Context) : RoomDatabase.Callback(){
                         effort = effort,
                         description = description,
                         ingredients = ingredients,
-                        imageFileURL = imageFileURL)
+                        //imageFileURL = imageFileURL
+                        )
                     dao?.addRecipe(recipe)
 
                 }

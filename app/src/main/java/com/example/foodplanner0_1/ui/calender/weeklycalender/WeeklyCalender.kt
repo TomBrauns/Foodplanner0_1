@@ -22,6 +22,7 @@ import java.util.*
 
 class WeeklyCalender : Fragment()
 {
+    var mealsList = mutableListOf<DayMeal>()
 
     lateinit var daysNumber: ArrayList<TextView>
     lateinit var calendar : Calendar

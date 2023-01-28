@@ -11,7 +11,7 @@ import java.util.UUID
 interface RecipeDao {
     // Function to fetch all Recipes
     @Query("SELECT * FROM recipe")
-    fun getRecipes(): Flow<List<Recipe>>
+    fun getRecipes(): List<Recipe>
 
     //Function to fetch a specific Recipe
     // (ID required as parameter)
