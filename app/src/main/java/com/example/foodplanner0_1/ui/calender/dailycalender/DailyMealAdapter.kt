@@ -10,6 +10,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
+import java.util.UUID
 
 class DailyMealAdapter (
     val source : ArrayList<DailyMealModel>,
@@ -26,8 +27,8 @@ class DailyMealAdapter (
     }
 
     interface OnMealListener{
-        fun onRecipeSelected(item: DailyMealModel, controls: DailyMealAdapter.ViewHolder)
-        fun onShoppingListSelected(item: DailyMealModel, controls : DailyMealAdapter.ViewHolder)
+        fun onRecipeSelected(item: DailyMealModel, id: UUID?,controls: DailyMealAdapter.ViewHolder)
+        fun onShoppingListSelected(item: DailyMealModel, id : UUID?, controls : DailyMealAdapter.ViewHolder)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -48,11 +49,13 @@ class DailyMealAdapter (
         holder.mealSpinner.setSelection(item.meals.indexOf(item.mealSelected))
 
         holder.addShopping.setOnClickListener(){
-            listener.onShoppingListSelected(item, holder)
+            val idx = holder.mealSpinner.selectedItemPosition
+            listener.onShoppingListSelected(item,  item.mealsId[idx] ,holder)
         }
 
         holder.seeRecipe.setOnClickListener(){
-            listener.onRecipeSelected(item, holder)
+            val idx = holder.mealSpinner.selectedItemPosition
+            listener.onRecipeSelected(item, item.mealsId[idx] ,holder)
         }
     }
 

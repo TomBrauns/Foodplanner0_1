@@ -9,14 +9,20 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
+import com.example.foodplanner0_1.ui.recipes.data.Recipe
+import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
+import com.example.foodplanner0_1.ui.recipes.ui.recipedetail.RecipeDetail
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 private const val DAY_PARAM = "dayParam"
 private const val MONTH_PARAM = "monthParam"
@@ -74,19 +80,35 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
                 }, 600, TimeUnit.MILLISECONDS)
         }
 
+        val room = RecipeDatabase.get()
+
+        lifecycleScope.launch{
+            var recipes = room.recipeDao().getRecipes()
+            showRecipes(recipes)
+        }
+
+        // Inflate the layout for this fragment
+        return view
+    }
+
+    private fun showRecipes(recipes: List<Recipe>) {
         val foods = ArrayList<String>()
-        for(i in 1..200){
-            foods.add("Food " + i)
+        val uuids = ArrayList<UUID?>()
+
+        for(recipe in recipes){
+            foods.add(recipe.title)
+            uuids.add(recipe.id)
         }
         foods.add(MealConstants.NO_SELECTION_MEAL)
+        uuids.add(null)
 
         val icons = listOf(R.drawable.ic_breakfast_crossant, R.drawable.ic_lunch_hambur, R.drawable.ic_baseline_cookie_24)
         val names = listOf("Breakfast", "Lunch", "Dinner")
-        val defaults = listOf("Food 1", MealConstants.NO_SELECTION_MEAL, "Food 22")
+        val defaults = listOf(MealConstants.NO_SELECTION_MEAL, MealConstants.NO_SELECTION_MEAL, MealConstants.NO_SELECTION_MEAL)
         val mealItems = ArrayList<DailyMealModel>()
 
         icons.forEachIndexed { index, icon ->
-            val item = DailyMealModel(names[index], icon, defaults[index], foods)
+            val item = DailyMealModel(names[index], icon, defaults[index], foods, uuids)
             mealItems.add(item)
         }
 
@@ -94,10 +116,8 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
         mealRecylerView.layoutManager = layoutManager
         adapter = DailyMealAdapter(mealItems, requireContext(), this)
         mealRecylerView.adapter = adapter
-
-        // Inflate the layout for this fragment
-        return view
     }
+
 
     companion object {
         @JvmStatic
@@ -111,15 +131,22 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
             }
     }
 
-    override fun onRecipeSelected(item: DailyMealModel, controls: DailyMealAdapter.ViewHolder) {
+    override fun onRecipeSelected(item: DailyMealModel, id : UUID?, controls: DailyMealAdapter.ViewHolder) {
         if(controls.mealSpinner.selectedItem.toString() == MealConstants.NO_SELECTION_MEAL){
             Snackbar.make(saveMeal, "No meal selected", Snackbar.LENGTH_LONG).show()
             return
         }
-        Toast.makeText(context, "Recipe view not implemented", Toast.LENGTH_SHORT).show()
+        val recipeFragment = RecipeDetail.newInstance(id.toString(), "---")
+
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.nav_host_fragment_activity_main, recipeFragment)
+            .addToBackStack(null)
+            .commit()
+        //Toast.makeText(context, "Recipe view not implemented", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onShoppingListSelected(item: DailyMealModel, controls: DailyMealAdapter.ViewHolder) {
+    override fun onShoppingListSelected(item: DailyMealModel, id : UUID?, controls: DailyMealAdapter.ViewHolder) {
         if(controls.mealSpinner.selectedItem.toString() == MealConstants.NO_SELECTION_MEAL){
             Snackbar.make(saveMeal, "No meal selected", Snackbar.LENGTH_LONG).show()
             return

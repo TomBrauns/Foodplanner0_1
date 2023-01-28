@@ -47,14 +47,7 @@ class AddRecipe : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_recipe, container, false)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
-            val recipeFragment = RecipeListFragment()
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.nav_host_fragment_activity_main, recipeFragment)
-                .addToBackStack(null)
-                //.setReorderingAllowed(true)
-                .commit()
-        //returnToRecipes()
+            returnToRecipes()
         }
 
         titleInput = view.findViewById(R.id.recipe_title)

@@ -15,6 +15,7 @@ import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.ui.recipes.data.Recipe
 import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import com.example.foodplanner0_1.ui.recipes.ui.addrecipe.AddRecipe
+import com.example.foodplanner0_1.ui.recipes.ui.recipedetail.RecipeDetail
 import com.example.foodplanner0_1.ui.recipes.viewmodel.RecipeViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
@@ -22,7 +23,8 @@ import kotlinx.coroutines.launch
 
 private const val TAG = "RecipeListFragment"
 
-class RecipeListFragment : Fragment() {
+
+class RecipeListFragment : Fragment(), OnRecipeSelected {
     //private var _binding: FragmentRecipesBinding? = null
 
     private lateinit var addRecipeButton : FloatingActionButton
@@ -82,9 +84,7 @@ class RecipeListFragment : Fragment() {
 
         //Toast.makeText(context, "" + recipes.size + " --- " + recipesList.size, Toast.LENGTH_SHORT).show()
 
-        val adapter = RecipeListAdapter(recipesList){
-            Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
-        }
+        val adapter = RecipeListAdapter(requireContext()!!, recipesList, this)
         recipesRecylerView.adapter = adapter
         adapter.notifyItemRangeInserted(0, recipesList.size)
 
@@ -101,6 +101,16 @@ class RecipeListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         //_binding = null
+    }
+
+    override fun onItemClick(item: Recipe) {
+        val recipeFragment = RecipeDetail.newInstance(item.id.toString(), "RECIPES")
+
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.nav_host_fragment_activity_main, recipeFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
 }
