@@ -54,7 +54,8 @@ class RecipeListFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 recipeViewModel.recipes.collect { recipes ->
                     binding.recipesListRecyclerView.adapter =
-                        RecipeListAdapter(recipes) { recipeId ->
+                        RecipeListAdapter(recipes)
+                        { recipeId ->
                             findNavController().navigate(
                                 RecipeListFragmentDirections.showRecipeDetail(recipeId)
                             )
