@@ -5,6 +5,8 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.example.foodplanner0_1.ui.calender.data.Meal
 import com.example.foodplanner0_1.ui.calender.data.MealsName
+import com.example.foodplanner0_1.ui.shoppinglist.data.ShoppingItem
+import com.example.foodplanner0_1.ui.shoppinglist.data.ShoppingList
 import java.util.UUID
 
 // Database requests are handled here. Direct Requests
@@ -42,4 +44,10 @@ interface RecipeDao {
 
     @Query("SELECT * FROM meal WHERE month = :month AND year = :year")
     suspend fun getMonth(month : Int, year : Int) : List<Meal>
+
+    @Query("SELECT item, COUNT(*) as count FROM shoppingItem GROUP BY item")
+    suspend fun getShoppingList() : List<ShoppingList>
+
+    @Insert
+    suspend fun addShoppingItem(item : ShoppingItem)
 }

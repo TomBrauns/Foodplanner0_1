@@ -5,11 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.foodplanner0_1.ui.calender.data.Meal
+import com.example.foodplanner0_1.ui.shoppinglist.data.ShoppingItem
 
 // Entities are from the type Recipe
 private const val DATABASE_NAME = "recipe-database"
 
-@Database(entities = [Recipe::class, Meal::class], version = 5)
+@Database(entities = [Recipe::class, Meal::class, ShoppingItem::class], version = 6)
 abstract class RecipeDatabase : RoomDatabase() {
     abstract fun recipeDao(): RecipeDao
 
