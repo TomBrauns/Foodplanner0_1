@@ -20,4 +20,7 @@ interface RecipeDao {
 
     @Insert
     suspend fun addRecipe(recipe: Recipe)
+
+    @Query("UPDATE recipe SET title = :title, description = :description, effort = :effort, ingredients = :ingredients, steps = :steps WHERE id = :id")
+    suspend fun updateRecipe(id : UUID, title : String, description : String, effort : String, ingredients : String, steps : String)
 }

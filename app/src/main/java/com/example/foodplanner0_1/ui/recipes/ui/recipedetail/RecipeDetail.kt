@@ -12,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import com.example.foodplanner0_1.ui.recipes.ui.RecipeListFragment
+import com.example.foodplanner0_1.ui.recipes.ui.editrecipe.EditRecipe
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 import java.util.*
@@ -35,6 +37,7 @@ class RecipeDetail : Fragment() {
     private lateinit var effort : TextView
     private lateinit var ingredients : TextView
     private lateinit var steps : TextView
+    private lateinit var editButton : FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,22 +58,32 @@ class RecipeDetail : Fragment() {
         effort = view.findViewById(R.id.view_recipe_effort)
         ingredients = view.findViewById(R.id.view_recipe_ingredients)
         steps = view.findViewById(R.id.view_recipe_steps)
+        editButton = view.findViewById(R.id.edit_recipe_button)
+
+        editButton.setOnClickListener{
+            val recipeFragment = EditRecipe.newInstance(uuid!!, origin!!)
+
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.nav_host_fragment_activity_main, recipeFragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
         val room = RecipeDatabase.get()
 
-
-            if(origin == "RECIPES"){
-                //Toast.makeText(context, "GO BACK RECIPES", Toast.LENGTH_LONG).show()
-                requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-                    val recipeFragment = RecipeListFragment()
-                    parentFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment_activity_main, recipeFragment)
-                        .addToBackStack(null)
-                        .setReorderingAllowed(true)
-                        .commit()
+        if(origin == "RECIPES"){
+            //Toast.makeText(context, "GO BACK RECIPES", Toast.LENGTH_LONG).show()
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            val recipeFragment = RecipeListFragment()
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.nav_host_fragment_activity_main, recipeFragment)
+                .addToBackStack(null)
+                .setReorderingAllowed(true)
+                .commit()
                 }
-            }
+        }
 
         lifecycleScope.launch{
             var recipe = room.recipeDao().getRecipe(UUID.fromString(uuid))

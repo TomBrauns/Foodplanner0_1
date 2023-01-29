@@ -9,4 +9,3 @@ class DayMeal (
     var dinner: String,
     var id: Int? = 0
 )
-

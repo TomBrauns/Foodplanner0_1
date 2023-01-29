@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10sp">
+
+        <TextView
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Recipe"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Title"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recipe_title"
+            android:hint="Dish or recipe name">
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Description"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/recipe_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="A short description about the recipe">
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Effort"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/recipe_effort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Time that takes to cook">
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Ingredients"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:lines="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ingredients_input"
+            android:hint="Type here the recipe ingredients. One ingredient per line">
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Steps"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:lines="4"
+            android:layout_width="match_parent"
+            android:id="@+id/steps_input"
+            android:layout_height="wrap_content"
+            android:hint="Type here the recipe steps. One step per line">
+        </EditText>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recipe_save"
+            android:text="Save recipe"
+            android:layout_marginHorizontal="15dp"/>
+    </LinearLayout>
+</ScrollView>
