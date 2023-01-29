@@ -45,6 +45,7 @@
         app:layout_constraintVertical_bias="0.974" />
 
     <EditText
+        android:visibility="gone"
         android:id="@+id/editTextTextPersonName"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="10dp"

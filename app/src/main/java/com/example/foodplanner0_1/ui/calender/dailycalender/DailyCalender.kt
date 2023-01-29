@@ -155,8 +155,8 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
             }else{
                 defaults = listOf(
                     mealDb.breakfastName ?: MealConstants.NO_SELECTION_MEAL,
-                    mealDb.dinnerName ?: MealConstants.NO_SELECTION_MEAL,
-                    mealDb.lunchName ?: MealConstants.NO_SELECTION_MEAL
+                    mealDb.lunchName ?: MealConstants.NO_SELECTION_MEAL,
+                    mealDb.dinnerName ?: MealConstants.NO_SELECTION_MEAL
                 )
             }
 

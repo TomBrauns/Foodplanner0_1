@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.ui.calender.dailycalender.DailyCalender
+import com.example.foodplanner0_1.ui.calender.dailycalender.MealConstants
 import com.example.foodplanner0_1.ui.calender.monthlycalender.CalenderFragment
 import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -122,14 +123,14 @@ class WeeklyCalender : Fragment()
                     if(mealDb == null){
                         meal = DayMeal(
                             nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH).toString(),
-                            "Not set","Not set","Not set"
+                            MealConstants.NO_MEAL_SELECTED, MealConstants.NO_MEAL_SELECTED, MealConstants.NO_MEAL_SELECTED
                         )
                     }else{
                         meal = DayMeal(
                             nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH).toString(),
-                            mealDb.breakfastName ?: "Not set",
-                            mealDb.lunchName?: "Not set",
-                            mealDb.dinnerName?: "Not set"
+                            mealDb.breakfastName ?: MealConstants.NO_MEAL_SELECTED,
+                            mealDb.lunchName?: MealConstants.NO_MEAL_SELECTED,
+                            mealDb.dinnerName?: MealConstants.NO_MEAL_SELECTED
                         )
                     }
 

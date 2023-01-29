@@ -16,7 +16,7 @@ interface RecipeDao {
 
     //Function to fetch a specific Recipe
     // (ID required as parameter)
-    @Query("SELECT * FROM recipe WHERE id=(:id)")
+    @Query("SELECT * FROM recipe WHERE id=(:id) ORDER BY title ASC")
     suspend fun getRecipe(id: UUID): Recipe
 
     @Insert
@@ -39,4 +39,7 @@ interface RecipeDao {
 
     @Query("UPDATE meal SET breakfast = :breakfast, lunch = :lunch, dinner = :dinner WHERE id = :uuid")
     suspend fun updateMeal(uuid : UUID, breakfast : UUID?, lunch : UUID?, dinner : UUID?)
+
+    @Query("SELECT * FROM meal WHERE month = :month AND year = :year")
+    suspend fun getMonth(month : Int, year : Int) : List<Meal>
 }
