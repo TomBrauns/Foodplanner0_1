@@ -50,4 +50,7 @@ interface RecipeDao {
 
     @Insert
     suspend fun addShoppingItem(item : ShoppingItem)
+
+    @Query("DELETE FROM shoppingItem WHERE id = (SELECT id FROM shoppingitem WHERE item = :item LIMIT 1)")
+    suspend fun deleteOne(item : String)
 }
