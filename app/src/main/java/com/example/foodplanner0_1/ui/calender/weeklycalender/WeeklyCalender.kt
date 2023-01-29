@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.format.DateUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.ui.calender.dailycalender.DailyCalender
-import com.example.foodplanner0_1.ui.calender.data.MealDatabase
-import com.example.foodplanner0_1.ui.calender.data.MealsName
 import com.example.foodplanner0_1.ui.calender.monthlycalender.CalenderFragment
 import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -28,6 +27,7 @@ import java.util.*
 class WeeklyCalender : Fragment()
 {
     var mealsList = mutableListOf<DayMeal>()
+    val room = RecipeDatabase.get()
 
     lateinit var daysNumber: ArrayList<TextView>
     lateinit var calendar : Calendar
@@ -100,41 +100,45 @@ class WeeklyCalender : Fragment()
         val itCalendar = calendar.clone() as Calendar
         mealsList.clear()
         adapter.notifyItemRangeRemoved(0, 7)
-        MealDatabase.initialize(requireContext())
-        val room = MealDatabase.get()
+        //MealDatabase.initialize(requireContext())
 
-        daysNumber.forEach(){
-            it.text = itCalendar.get(Calendar.DAY_OF_MONTH).toString()
-            if(DateUtils.isToday(itCalendar.timeInMillis)){
-                it.setTypeface(null, Typeface.BOLD)
-            }else{
-                it.setTypeface(null, Typeface.NORMAL)
-            }
 
 
             lifecycleScope.launch{
-                var mealDb = room.mealDao().getMeal(itCalendar.get(Calendar.DAY_OF_MONTH), itCalendar.get(Calendar.MONTH), itCalendar.get(Calendar.YEAR))
-                //var mealDb : MealsName? = null
-                var meal : DayMeal
+                daysNumber.forEach(){
 
-                if(mealDb == null){
-                    meal = DayMeal(
-                        nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH).toString(),
-                        "Not set","Not set","Not set"
-                    )
-                }else{
-                    meal = DayMeal(
-                        nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH).toString(),
-                        mealDb.breakfastName ?: "Not set",
-                        mealDb.lunchName?: "Not set",
-                        mealDb.dinnerName?: "Not set"
-                    )
-                }
-                mealsList.add(meal)
-                itCalendar.add(Calendar.DATE, 1)
+                    it.text = itCalendar.get(Calendar.DAY_OF_MONTH).toString()
+                    if(DateUtils.isToday(itCalendar.timeInMillis)){
+                        it.setTypeface(null, Typeface.BOLD)
+                    }else{
+                        it.setTypeface(null, Typeface.NORMAL)
+                    }
+
+                    val mealDb = room.recipeDao().getMeal(itCalendar.get(Calendar.DAY_OF_MONTH), itCalendar.get(Calendar.MONTH), itCalendar.get(Calendar.YEAR))
+                    var meal : DayMeal
+
+                    Log.d("--MEAL--" + itCalendar.get(Calendar.DAY_OF_MONTH).toString(), mealDb?.breakfast.toString())
+
+                    if(mealDb == null){
+                        meal = DayMeal(
+                            nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH).toString(),
+                            "Not set","Not set","Not set"
+                        )
+                    }else{
+                        meal = DayMeal(
+                            nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH).toString(),
+                            mealDb.breakfastName ?: "Not set",
+                            mealDb.lunchName?: "Not set",
+                            mealDb.dinnerName?: "Not set"
+                        )
+                    }
+
+                    mealsList.add(meal)
+                    adapter.notifyItemInserted(mealsList.size - 1)
+                    itCalendar.add(Calendar.DATE, 1)
             }
         }
-        adapter.notifyItemRangeInserted(0, 7)
+
         monthText.text = monthYearFormatter.format(calendar.time)
     }
 

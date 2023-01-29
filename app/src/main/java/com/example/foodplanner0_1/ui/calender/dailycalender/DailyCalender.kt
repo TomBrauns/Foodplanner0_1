@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.get
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
+import com.example.foodplanner0_1.ui.calender.data.Meal
+import com.example.foodplanner0_1.ui.calender.data.MealsName
 import com.example.foodplanner0_1.ui.recipes.data.Recipe
 import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import com.example.foodplanner0_1.ui.recipes.ui.recipedetail.RecipeDetail
@@ -43,6 +47,9 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
 
     private lateinit var adapter : DailyMealAdapter
     private lateinit var mealRecylerView : RecyclerView
+    private var meals = ArrayList<UUID?>()
+
+    val room = RecipeDatabase.get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,10 +81,35 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
 
         saveMeal.setOnClickListener{
             //(activity as MainActivity).clickBottomItem(0)
-            Snackbar.make(view, "Meals updated (not really)", Snackbar.LENGTH_LONG).show()
-            Executors.newSingleThreadScheduledExecutor().schedule({
-                parentFragmentManager.popBackStack()
-                }, 600, TimeUnit.MILLISECONDS)
+
+            lifecycleScope.launch{
+                try{
+                    var todayMeal : MealsName? = room.recipeDao().getMeal(day!!, month!!, year!!)
+                    if(todayMeal == null){
+                        val mealToBeAdded = Meal(
+                            UUID.randomUUID(),
+                            day!!, month!!, year!!,
+                            meals[0],
+                            meals[1],
+                            meals[2]
+                        )
+                        room.recipeDao().addMeal(mealToBeAdded)
+                    }else{
+                        room.recipeDao().updateMeal(todayMeal.id, meals[0], meals[1], meals[2])
+                    }
+
+                    Toast.makeText(context, "Meals saved", Toast.LENGTH_SHORT).show()
+                    Executors.newSingleThreadScheduledExecutor().schedule({
+                        parentFragmentManager.popBackStack()
+                    }, 600, TimeUnit.MILLISECONDS)
+
+                }catch(e : java.lang.Exception){
+                    Toast.makeText(context, "Error saving meals", Toast.LENGTH_SHORT).show()
+                }
+            }
+//            Executors.newSingleThreadScheduledExecutor().schedule({
+//                parentFragmentManager.popBackStack()
+//                }, 600, TimeUnit.MILLISECONDS)
         }
 
         val room = RecipeDatabase.get()
@@ -104,18 +136,49 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
 
         val icons = listOf(R.drawable.ic_breakfast_crossant, R.drawable.ic_lunch_hambur, R.drawable.ic_baseline_cookie_24)
         val names = listOf("Breakfast", "Lunch", "Dinner")
-        val defaults = listOf(MealConstants.NO_SELECTION_MEAL, MealConstants.NO_SELECTION_MEAL, MealConstants.NO_SELECTION_MEAL)
-        val mealItems = ArrayList<DailyMealModel>()
 
-        icons.forEachIndexed { index, icon ->
-            val item = DailyMealModel(names[index], icon, defaults[index], foods, uuids)
-            mealItems.add(item)
+        lifecycleScope.launch {
+            var mealDb = room.recipeDao().getMeal(
+                day!!,
+                month!!,
+                year!!
+            )
+
+            var defaults : List<String>? = null
+
+            if(mealDb == null){
+                defaults = listOf(
+                    MealConstants.NO_SELECTION_MEAL,
+                    MealConstants.NO_SELECTION_MEAL,
+                    MealConstants.NO_SELECTION_MEAL
+                )
+            }else{
+                defaults = listOf(
+                    mealDb.breakfastName ?: MealConstants.NO_SELECTION_MEAL,
+                    mealDb.dinnerName ?: MealConstants.NO_SELECTION_MEAL,
+                    mealDb.lunchName ?: MealConstants.NO_SELECTION_MEAL
+                )
+            }
+
+            meals.clear()
+            meals.add(mealDb?.breakfast)
+            meals.add(mealDb?.lunch)
+            meals.add(mealDb?.dinner)
+
+            val mealItems = ArrayList<DailyMealModel>()
+
+            icons.forEachIndexed { index, icon ->
+                val item = DailyMealModel(names[index], icon, defaults[index], foods, uuids)
+                mealItems.add(item)
+            }
+
+            val layoutManager = LinearLayoutManager(context)
+            mealRecylerView.layoutManager = layoutManager
+            adapter = DailyMealAdapter(mealItems, requireContext(), this@DailyCalender)
+            mealRecylerView.adapter = adapter
+
         }
 
-        val layoutManager = LinearLayoutManager(context)
-        mealRecylerView.layoutManager = layoutManager
-        adapter = DailyMealAdapter(mealItems, requireContext(), this)
-        mealRecylerView.adapter = adapter
     }
 
 
@@ -160,5 +223,26 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
                 dialog.dismiss()
             }.create()
             .show()
+    }
+
+    override fun onSelectRecipe(
+        item: DailyMealModel,
+        id: UUID?,
+        controls: DailyMealAdapter.ViewHolder
+    ) {
+        when (item.mealName) {
+            "Breakfast" -> {
+                meals[0] = id
+            }
+            "Lunch" -> {
+                meals[1] = id
+            }
+            "Dinner" ->{
+                meals[2] = id
+            }
+            else -> {
+                Toast.makeText(context, item.mealName + id, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
