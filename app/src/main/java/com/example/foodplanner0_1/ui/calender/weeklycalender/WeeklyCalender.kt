@@ -11,12 +11,17 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.ui.calender.dailycalender.DailyCalender
+import com.example.foodplanner0_1.ui.calender.data.MealDatabase
+import com.example.foodplanner0_1.ui.calender.data.MealsName
 import com.example.foodplanner0_1.ui.calender.monthlycalender.CalenderFragment
+import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -95,6 +100,9 @@ class WeeklyCalender : Fragment()
         val itCalendar = calendar.clone() as Calendar
         mealsList.clear()
         adapter.notifyItemRangeRemoved(0, 7)
+        MealDatabase.initialize(requireContext())
+        val room = MealDatabase.get()
+
         daysNumber.forEach(){
             it.text = itCalendar.get(Calendar.DAY_OF_MONTH).toString()
             if(DateUtils.isToday(itCalendar.timeInMillis)){
@@ -102,12 +110,29 @@ class WeeklyCalender : Fragment()
             }else{
                 it.setTypeface(null, Typeface.NORMAL)
             }
-            val meal = DayMeal(
-                nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH).toString(),
-                "Breakfast","Lunch","Dinner"
-            )
-            mealsList.add(meal)
-            itCalendar.add(Calendar.DATE, 1)
+
+
+            lifecycleScope.launch{
+                var mealDb = room.mealDao().getMeal(itCalendar.get(Calendar.DAY_OF_MONTH), itCalendar.get(Calendar.MONTH), itCalendar.get(Calendar.YEAR))
+                //var mealDb : MealsName? = null
+                var meal : DayMeal
+
+                if(mealDb == null){
+                    meal = DayMeal(
+                        nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH).toString(),
+                        "Not set","Not set","Not set"
+                    )
+                }else{
+                    meal = DayMeal(
+                        nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH).toString(),
+                        mealDb.breakfastName ?: "Not set",
+                        mealDb.lunchName?: "Not set",
+                        mealDb.dinnerName?: "Not set"
+                    )
+                }
+                mealsList.add(meal)
+                itCalendar.add(Calendar.DATE, 1)
+            }
         }
         adapter.notifyItemRangeInserted(0, 7)
         monthText.text = monthYearFormatter.format(calendar.time)
