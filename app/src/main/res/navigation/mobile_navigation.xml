@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/navigation_recipes"
         android:name="com.example.foodplanner0_1.ui.recipes.ui.RecipeListFragment"
-        android:label="RecipesFragment"
+        android:label="Recipes"
         tools:layout="@layout/fragment_recipes" >
         <action
             android:id="@+id/show_recipe_detail"
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/recipeDetailFragment"
-        android:name="com.example.foodplanner0_1.ui.recipes.RecipeDetailFragment"
+        android:name="com.example.foodplanner0_1.ui.recipes.recipedetails.RecipeDetailFragment"
         android:label="RecipesDetailFragment"
         tools:layout="@layout/fragment_recipe_detail" >
         <argument
