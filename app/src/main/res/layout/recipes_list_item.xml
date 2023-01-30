@@ -104,7 +104,7 @@
             android:paddingTop="2dp"
             android:paddingRight="10dp"
             android:paddingBottom="0dp"
-            android:text="@string/recipe_ingredients"
+            android:text="@string/recipe_description"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

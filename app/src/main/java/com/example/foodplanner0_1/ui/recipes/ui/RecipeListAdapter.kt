@@ -16,7 +16,7 @@ class RecipeHolder(
         binding.recipesLabel.text = recipe.title
         binding.recipeEffort.text = recipe.effort // This is the new element
         //binding.recipesDescription.text = recipe.description (This does not exist in this Fragment ( or shouldnt, hard to test without a working project ... :D )
-        binding.recipesIngredients.text = recipe.ingredients
+        binding.recipesIngredients.text = recipe.description
 
         //itemView.background = ColorDrawable(Color.GRAY)
 

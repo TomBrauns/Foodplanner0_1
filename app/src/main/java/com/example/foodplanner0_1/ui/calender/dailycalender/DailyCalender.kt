@@ -20,6 +20,7 @@ import com.example.foodplanner0_1.ui.calender.data.MealsName
 import com.example.foodplanner0_1.ui.recipes.data.Recipe
 import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import com.example.foodplanner0_1.ui.recipes.ui.recipedetail.RecipeDetail
+import com.example.foodplanner0_1.ui.shoppinglist.data.ShoppingItem
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -216,8 +217,30 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
         }
         AlertDialog.Builder(requireContext())
             .setMessage("Add ingredients to shopping list?")
-            .setPositiveButton("Yes"){ dialog, id ->
-                Toast.makeText(context, "Added to shopping list (not really)", Toast.LENGTH_SHORT).show()
+            .setPositiveButton("Yes"){ dialog, idView ->
+                lifecycleScope.launch{
+                    val recipe = room.recipeDao().getRecipe(id!!)
+                    val items = recipe.ingredients.split("\n")
+                    val addItems = ArrayList<ShoppingItem>()
+
+                    for(item in items){
+                        val ingredient = item.trim()
+                        if(ingredient.isEmpty()){
+                            continue
+                        }
+
+                        addItems.add(
+                            ShoppingItem(
+                                UUID.randomUUID(),
+                                item.trim()
+                            )
+                        )
+                    }
+
+                    room.recipeDao().addShoppingCart(addItems)
+
+                    Toast.makeText(context, addItems.size.toString() + " ingredients added to shopping list", Toast.LENGTH_SHORT).show()
+                }
             }
             .setNegativeButton("No"){dialog, id ->
                 dialog.dismiss()

@@ -1,5 +1,6 @@
 package com.example.foodplanner0_1.ui.recipes.ui.recipedetail
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import com.example.foodplanner0_1.ui.recipes.ui.RecipeListFragment
 import com.example.foodplanner0_1.ui.recipes.ui.editrecipe.EditRecipe
+import com.example.foodplanner0_1.ui.shoppinglist.data.ShoppingItem
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 import org.w3c.dom.Text
@@ -38,6 +40,7 @@ class RecipeDetail : Fragment() {
     private lateinit var ingredients : TextView
     private lateinit var steps : TextView
     private lateinit var editButton : FloatingActionButton
+    private lateinit var shoppingButton : FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +62,7 @@ class RecipeDetail : Fragment() {
         ingredients = view.findViewById(R.id.view_recipe_ingredients)
         steps = view.findViewById(R.id.view_recipe_steps)
         editButton = view.findViewById(R.id.edit_recipe_button)
+        shoppingButton = view.findViewById(R.id.add_shopping_list_button)
 
         editButton.setOnClickListener{
             val recipeFragment = EditRecipe.newInstance(uuid!!, origin!!)
@@ -98,6 +102,40 @@ class RecipeDetail : Fragment() {
             }
             steps.text = stepsText
 
+        }
+
+        shoppingButton.setOnClickListener{
+            AlertDialog.Builder(requireContext())
+                .setMessage("Add ingredients to shopping list?")
+                .setPositiveButton("Yes"){ dialog, idView ->
+                    lifecycleScope.launch{
+                        val recipe = room.recipeDao().getRecipe(UUID.fromString(uuid!!))
+                        val items = recipe.ingredients.split("\n")
+                        val addItems = ArrayList<ShoppingItem>()
+
+                        for(item in items){
+                            val ingredient = item.trim()
+                            if(ingredient.isEmpty()){
+                                continue
+                            }
+
+                            addItems.add(
+                                ShoppingItem(
+                                    UUID.randomUUID(),
+                                    item.trim()
+                                )
+                            )
+                        }
+
+                        room.recipeDao().addShoppingCart(addItems)
+
+                        Toast.makeText(context, addItems.size.toString() + " ingredients added to shopping list", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .setNegativeButton("No"){dialog, id ->
+                    dialog.dismiss()
+                }.create()
+                .show()
         }
 
         return view

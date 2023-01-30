@@ -2,12 +2,14 @@ package com.example.foodplanner0_1.ui.recipes.data
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.foodplanner0_1.ui.calender.data.Meal
 import com.example.foodplanner0_1.ui.calender.data.MealsName
 import com.example.foodplanner0_1.ui.shoppinglist.data.ShoppingItem
 import com.example.foodplanner0_1.ui.shoppinglist.data.ShoppingList
-import java.util.UUID
+import java.util.*
+
 
 // Database requests are handled here. Direct Requests
 @Dao
@@ -53,4 +55,8 @@ interface RecipeDao {
 
     @Query("DELETE FROM shoppingItem WHERE id = (SELECT id FROM shoppingitem WHERE item = :item LIMIT 1)")
     suspend fun deleteOne(item : String)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @JvmSuppressWildcards
+    fun addShoppingCart(items: List<ShoppingItem>)
 }
