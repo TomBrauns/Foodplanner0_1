@@ -16,7 +16,7 @@ class RecipeRepository private constructor(
 
 
     //Functions that the Database can actually work with
-    fun getRecipes(): Flow<List<Recipe>> = database.recipeDao().getRecipes()
+    fun getRecipes(): List<Recipe> = database.recipeDao().getRecipes()
 
     suspend fun getRecipe(id: UUID): Recipe = database.recipeDao().getRecipe(id)
 

@@ -2,17 +2,22 @@ package com.example.foodplanner0_1.ui.calender.monthlycalender
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
 import com.example.foodplanner0_1.ui.calender.dailycalender.DailyCalender
+import com.example.foodplanner0_1.ui.calender.data.Meal
 import com.example.foodplanner0_1.ui.calender.weeklycalender.WeeklyCalender
+import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,6 +38,7 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
 
     private var monthSelected: Int? = null
     private var yearSelected: Int? = null
+    val room = RecipeDatabase.get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,21 +96,27 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
 
     private fun updateMonth(){
         monthText.text = monthYearFormatter.format(calendar.time)
-        val days = getDays()
-        val adapter = CalendarCellAdapter(days, requireContext(), this)
-        val layoutManager = GridLayoutManager(context, 7)
-        calendarRecyclerView.layoutManager = layoutManager
-        calendarRecyclerView.adapter = adapter
+        lifecycleScope.launch{
+            val monthMeals = room.recipeDao().getMonth(calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR))
+            for(meal in monthMeals){
+                Log.d("MONTH MEAL", meal.breakfast.toString() + "   " + meal.day.toString())
+            }
+            val days = getDays(monthMeals)
+            val adapter = CalendarCellAdapter(days, requireContext(), this@CalenderFragment)
+            val layoutManager = GridLayoutManager(context, 7)
+            calendarRecyclerView.layoutManager = layoutManager
+            calendarRecyclerView.adapter = adapter
+        }
     }
 
-    private fun getDays() : ArrayList<DayCellModel>{
+    private fun getDays(meals : List<Meal>) : ArrayList<DayCellModel> {
         val days = ArrayList<DayCellModel>()
 
         val itCalendar = calendar.clone() as Calendar
         val daysInMonth = itCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)
         var dayOfWeek = itCalendar.get(Calendar.DAY_OF_WEEK)
 
-        if(dayOfWeek == 7){
+        if (dayOfWeek == 7) {
             dayOfWeek = 0
         }
 
@@ -117,7 +129,11 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
                 )
             }else{
                 days.add(
-                    DayCellModel(false, true, false, itCalendar.clone() as Calendar)
+                    DayCellModel(
+                        meals.any{ it -> it.day == itCalendar.get(Calendar.DAY_OF_MONTH) && it.breakfast != null },
+                        meals.any{ it -> it.day == itCalendar.get(Calendar.DAY_OF_MONTH) && it.lunch != null },
+                        meals.any{ it -> it.day == itCalendar.get(Calendar.DAY_OF_MONTH) && it.dinner != null },
+                        itCalendar.clone() as Calendar)
                 )
                 itCalendar.add(Calendar.DATE, 1)
             }

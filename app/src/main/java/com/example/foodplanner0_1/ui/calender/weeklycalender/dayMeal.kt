@@ -1,7 +1,5 @@
 package com.example.foodplanner0_1.ui.calender.weeklycalender
 
-var mealsList = mutableListOf<DayMeal>()
-
 val MEAL_ID_EXTRA = "mealExtra"
 
 class DayMeal (
@@ -9,6 +7,5 @@ class DayMeal (
     var breakfast: String,
     var lunch: String,
     var dinner: String,
-    var id: Int? = mealsList.size
+    var id: Int? = 0
 )
-

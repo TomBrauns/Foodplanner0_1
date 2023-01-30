@@ -6,7 +6,7 @@
 
     <string name="title_recipes"> Recipes </string>
     <string name="text_my_recipe">My recipe</string>
-    <string name="fab_text">Show additional recipes</string>
+    <string name="fab_text">Add recipe</string>
 
 
     <string name="title_shoppingList"> Shopping </string>

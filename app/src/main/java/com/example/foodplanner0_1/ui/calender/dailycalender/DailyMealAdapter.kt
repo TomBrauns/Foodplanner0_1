@@ -4,12 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
+import java.util.UUID
 
 class DailyMealAdapter (
     val source : ArrayList<DailyMealModel>,
@@ -26,8 +24,9 @@ class DailyMealAdapter (
     }
 
     interface OnMealListener{
-        fun onRecipeSelected(item: DailyMealModel, controls: DailyMealAdapter.ViewHolder)
-        fun onShoppingListSelected(item: DailyMealModel, controls : DailyMealAdapter.ViewHolder)
+        fun onRecipeSelected(item: DailyMealModel, id: UUID?,controls: DailyMealAdapter.ViewHolder)
+        fun onShoppingListSelected(item: DailyMealModel, id : UUID?, controls : DailyMealAdapter.ViewHolder)
+        fun onSelectRecipe(item: DailyMealModel, id : UUID?, controls : DailyMealAdapter.ViewHolder)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -48,12 +47,27 @@ class DailyMealAdapter (
         holder.mealSpinner.setSelection(item.meals.indexOf(item.mealSelected))
 
         holder.addShopping.setOnClickListener(){
-            listener.onShoppingListSelected(item, holder)
+            val idx = holder.mealSpinner.selectedItemPosition
+            listener.onShoppingListSelected(item,  item.mealsId[idx] ,holder)
         }
 
         holder.seeRecipe.setOnClickListener(){
-            listener.onRecipeSelected(item, holder)
+            val idx = holder.mealSpinner.selectedItemPosition
+            listener.onRecipeSelected(item, item.mealsId[idx], holder)
         }
+
+        holder.mealSpinner.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                listener.onSelectRecipe(item, null, holder)
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val idx = holder.mealSpinner.selectedItemPosition
+                listener.onSelectRecipe(item, item.mealsId[idx], holder)
+            }
+
+        }
+
     }
 
     override fun getItemCount(): Int {

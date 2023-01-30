@@ -1,32 +1,39 @@
 package com.example.foodplanner0_1.ui.recipes.ui
 
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.databinding.RecipesListItemBinding
 import com.example.foodplanner0_1.ui.recipes.data.Recipe
-import java.util.UUID
 
 
 class RecipeHolder(
     private val binding: RecipesListItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(recipe: Recipe, onRecipeClicked: (recipeId: UUID) -> Unit) {
+    fun bind(recipe: Recipe, listener : OnRecipeSelected) {
 
         binding.recipesLabel.text = recipe.title
-        binding.recipeEffort.text = recipe.effort
-        binding.recipesIngredients.text = recipe.ingredients
+        binding.recipeEffort.text = recipe.effort // This is the new element
+        //binding.recipesDescription.text = recipe.description (This does not exist in this Fragment ( or shouldnt, hard to test without a working project ... :D )
+        binding.recipesIngredients.text = recipe.description
 
-        binding.root.setOnClickListener {
-            onRecipeClicked(recipe.id)
+        //itemView.background = ColorDrawable(Color.GRAY)
+
+        binding.recipesButton.setOnClickListener {
+            listener.onItemClick(recipe)
         }
     }
 }
 
+interface OnRecipeSelected{
+    fun onItemClick(item : Recipe)
+}
+
 class RecipeListAdapter(
+    context : Context,
     private val recipes: List<Recipe>,
-    private val onRecipeClicked: (recipeId: UUID) -> Unit
+    var listener: OnRecipeSelected
 ) : RecyclerView.Adapter<RecipeHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -39,7 +46,7 @@ class RecipeListAdapter(
 
     override fun onBindViewHolder(holder: RecipeHolder, position: Int) {
         val recipe = recipes[position]
-        holder.bind(recipe, onRecipeClicked)
+        holder.bind(recipe, listener)
     }
 
     override fun getItemCount() = recipes.size
