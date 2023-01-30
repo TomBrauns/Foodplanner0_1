@@ -42,7 +42,14 @@ class ShoppingListFragment : Fragment() {
         override fun onAddItem(description: String) {
             lifecycleScope.launch{
                 room.recipeDao().addShoppingItem(ShoppingItem(UUID.randomUUID(), description))
-                Snackbar.make(itemsRecyclerView, description + " added", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(itemsRecyclerView, description + " added", Snackbar.LENGTH_SHORT)
+                    .setAction("Undo"){
+                        lifecycleScope.launch{
+                            room.recipeDao().deleteOne(description)
+                            updateShoppingList()
+                        }
+                    }
+                    .show()
                 updateShoppingList()
             }
         }
@@ -50,7 +57,14 @@ class ShoppingListFragment : Fragment() {
         override fun onSubItem(description: String) {
             lifecycleScope.launch{
                 room.recipeDao().deleteOne(description)
-                Snackbar.make(itemsRecyclerView, description + " removed", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(itemsRecyclerView, description + " removed", Snackbar.LENGTH_SHORT)
+                    .setAction("Undo"){
+                        lifecycleScope.launch{
+                            room.recipeDao().addShoppingItem(ShoppingItem(UUID.randomUUID(), description))
+                            updateShoppingList()
+                        }
+                    }
+                    .show()
                 updateShoppingList()
             }
         }
@@ -84,6 +98,8 @@ class ShoppingListFragment : Fragment() {
                 .setTitle("Add item")
                 .setMessage("Add an item to the shopping list")
                 .setView(input)
+                .setNegativeButton("Cancel"){dialog, id->
+                }
                 .setPositiveButton("Add") { dialog, id ->
                     lifecycleScope.launch {
                         room.recipeDao()
