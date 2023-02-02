@@ -81,5 +81,13 @@
             android:id="@+id/recipe_save"
             android:text="Save recipe"
             android:layout_marginHorizontal="15dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recipe_delete"
+            android:text="Delete recipe"
+            android:layout_marginHorizontal="15dp"/>
+
     </LinearLayout>
 </ScrollView>

@@ -12,7 +12,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.foodplanner0_1.R
+import com.example.foodplanner0_1.R.id
 import com.example.foodplanner0_1.ui.recipes.data.Recipe
 import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import com.example.foodplanner0_1.ui.recipes.ui.recipedetail.RecipeDetail
@@ -26,13 +28,14 @@ class EditRecipe : Fragment() {
     private var uuid: String? = null
     private var origin: String? = null
 
-    private lateinit var titleInput : EditText
-    private lateinit var descriptionInput : EditText
-    private lateinit var effortInput : EditText
-    private lateinit var ingredientsInput : EditText
-    private lateinit var stepsInput : EditText
+    private lateinit var titleInput: EditText
+    private lateinit var descriptionInput: EditText
+    private lateinit var effortInput: EditText
+    private lateinit var ingredientsInput: EditText
+    private lateinit var stepsInput: EditText
 
-    private lateinit var saveRecipe : Button
+    private lateinit var saveRecipe: Button
+    private lateinit var deleteRecipe: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +46,7 @@ class EditRecipe : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_edit_recipe, container, false)
@@ -58,10 +60,7 @@ class EditRecipe : Fragment() {
             override fun afterTextChanged(e: Editable) {}
             override fun beforeTextChanged(arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int) {}
             override fun onTextChanged(
-                text: CharSequence,
-                start: Int,
-                lengthBefore: Int,
-                lengthAfter: Int
+                text: CharSequence, start: Int, lengthBefore: Int, lengthAfter: Int
             ) {
                 var text = text
                 if (lengthAfter > lengthBefore) {
@@ -85,10 +84,7 @@ class EditRecipe : Fragment() {
             override fun afterTextChanged(e: Editable) {}
             override fun beforeTextChanged(arg0: CharSequence, arg1: Int, arg2: Int, arg3: Int) {}
             override fun onTextChanged(
-                text: CharSequence,
-                start: Int,
-                lengthBefore: Int,
-                lengthAfter: Int
+                text: CharSequence, start: Int, lengthBefore: Int, lengthAfter: Int
             ) {
                 var text = text
                 if (lengthAfter > lengthBefore) {
@@ -107,22 +103,19 @@ class EditRecipe : Fragment() {
             }
         })
 
-        if(origin == "RECIPES"){
+        if (origin == "RECIPES") {
             //Toast.makeText(context, "GO BACK RECIPES", Toast.LENGTH_LONG).show()
-            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
                 val recipeFragment = RecipeDetail.newInstance(uuid.toString(), origin!!)
 
-                parentFragmentManager
-                    .beginTransaction()
+                parentFragmentManager.beginTransaction()
                     .replace(R.id.nav_host_fragment_activity_main, recipeFragment)
-                    .addToBackStack(null)
-                    .setReorderingAllowed(true)
-                    .commit()
+                    .addToBackStack(null).setReorderingAllowed(true).commit()
             }
         }
 
         val room = RecipeDatabase.get()
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             var recipe = room.recipeDao().getRecipe(UUID.fromString(uuid))
             titleInput.setText(recipe.title)
             descriptionInput.setText(recipe.description)
@@ -134,21 +127,23 @@ class EditRecipe : Fragment() {
         }
 
         saveRecipe = view.findViewById(R.id.recipe_save)
-        saveRecipe.setOnClickListener(){
-            val validators = listOf(titleInput, descriptionInput, effortInput, ingredientsInput, stepsInput)
+        saveRecipe.setOnClickListener() {
+            val validators =
+                listOf(titleInput, descriptionInput, effortInput, ingredientsInput, stepsInput)
             var isValid = true
-            validators.forEach(){
-                if(it.text.isEmpty()){
+            validators.forEach() {
+                if (it.text.isEmpty()) {
                     it.error = "Field cannot be empty"
                     isValid = false
                 }
             }
 
-            if(isValid){
+            if (isValid) {
 
-                lifecycleScope.launch{
-                    try{
-                        room.recipeDao().updateRecipe(UUID.fromString(uuid),
+                lifecycleScope.launch {
+                    try {
+                        room.recipeDao().updateRecipe(
+                            UUID.fromString(uuid),
                             titleInput.text.toString(),
                             descriptionInput.text.toString(),
                             effortInput.text.toString(),
@@ -157,24 +152,33 @@ class EditRecipe : Fragment() {
                         )
 
                         Toast.makeText(context, "Recipe edited", Toast.LENGTH_LONG).show()
-                        if(origin == "RECIPES"){
+                        if (origin == "RECIPES") {
                             val recipeFragment = RecipeDetail.newInstance(uuid.toString(), origin!!)
 
-                            parentFragmentManager
-                                .beginTransaction()
+                            parentFragmentManager.beginTransaction()
                                 .replace(R.id.nav_host_fragment_activity_main, recipeFragment)
-                                .addToBackStack(null)
-                                .setReorderingAllowed(true)
-                                .commit()
-                        }else{
+                                .addToBackStack(null).setReorderingAllowed(true).commit()
+                        } else {
                             requireActivity().onBackPressed()
                         }
-                        
-                    }catch(e : java.lang.Exception){
+
+                    } catch (e: java.lang.Exception) {
                         Toast.makeText(context, "Couldn't update recipe", Toast.LENGTH_LONG).show()
                     }
 
                 }
+            }
+        }
+
+        deleteRecipe = view.findViewById(R.id.recipe_delete)
+        deleteRecipe.setOnClickListener() {
+            lifecycleScope.launch {
+                try {
+                    room.recipeDao().deleteRecipe(UUID.fromString(uuid))
+                } catch (e: java.lang.Exception) {
+                    Toast.makeText(context, "Recipe deletion failed!", Toast.LENGTH_LONG).show()
+                }
+
             }
         }
 
@@ -183,13 +187,12 @@ class EditRecipe : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(uuid: String, origin : String) =
-            EditRecipe().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_UUID, uuid)
-                    putString(ARG_ORIGIN, origin)
-                }
+        fun newInstance(uuid: String, origin: String) = EditRecipe().apply {
+            arguments = Bundle().apply {
+                putString(ARG_UUID, uuid)
+                putString(ARG_ORIGIN, origin)
             }
+        }
     }
 
 }

@@ -8,12 +8,6 @@
     app:startDestination="@+id/navigation_calender">
 
     <fragment
-        android:id="@+id/navigation_user"
-        android:name="com.example.foodplanner0_1.ui.user.UserFragment"
-        android:label="@string/title_user"
-        tools:layout="@layout/fragment_user" />
-
-    <fragment
         android:id="@+id/navigation_calender"
         android:name="com.example.foodplanner0_1.ui.calender.weeklycalender.WeeklyCalender"
         android:label="Calender"

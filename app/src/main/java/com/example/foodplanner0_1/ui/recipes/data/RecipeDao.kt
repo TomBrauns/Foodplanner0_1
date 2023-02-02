@@ -1,9 +1,6 @@
 package com.example.foodplanner0_1.ui.recipes.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.foodplanner0_1.ui.calender.data.Meal
 import com.example.foodplanner0_1.ui.calender.data.MealsName
 import com.example.foodplanner0_1.ui.shoppinglist.data.ShoppingItem
@@ -29,6 +26,8 @@ interface RecipeDao {
     @Query("UPDATE recipe SET title = :title, description = :description, effort = :effort, ingredients = :ingredients, steps = :steps WHERE id = :id")
     suspend fun updateRecipe(id : UUID, title : String, description : String, effort : String, ingredients : String, steps : String)
 
+    @Query("DELETE FROM recipe WHERE id=(:id)")
+    suspend fun deleteRecipe(id: UUID)
     //Function to fetch a specific Meal Plan
     // (ID required as parameter)
     @Query("SELECT *, " +

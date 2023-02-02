@@ -10,7 +10,7 @@ import com.example.foodplanner0_1.ui.shoppinglist.data.ShoppingItem
 // Entities are from the type Recipe
 private const val DATABASE_NAME = "recipe-database"
 
-@Database(entities = [Recipe::class, Meal::class, ShoppingItem::class], version = 6)
+@Database(entities = [Recipe::class, Meal::class, ShoppingItem::class], version = 1)
 abstract class RecipeDatabase : RoomDatabase() {
     abstract fun recipeDao(): RecipeDao
 
@@ -23,11 +23,12 @@ abstract class RecipeDatabase : RoomDatabase() {
                     context.applicationContext, RecipeDatabase::class.java, DATABASE_NAME
                 ).fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
-                    ./** addCallback(
-                    RecipePreset(context)
-                ).fallbackToDestructiveMigration() .*/build()
+                    .addCallback(RecipePreset(context))
+                    .build()
+
             }
         }
+
         fun get(): RecipeDatabase {
             return instance
                 ?: throw IllegalStateException("RecipeDatabase must be initialized")

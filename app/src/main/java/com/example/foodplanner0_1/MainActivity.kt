@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity()
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-        //    R.id.navigation_user,           // Implementation of Navbar-Element "User"
             R.id.navigation_calender,       // Implementation of Navbar-Element "Calender"
             R.id.navigation_recipes,        // Implementation of Navbar-Element "Recipes"
             R.id.navigation_shoppingList))  // Implementation of Navbar-Element "shoppinglist"

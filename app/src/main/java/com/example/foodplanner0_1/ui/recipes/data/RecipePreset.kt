@@ -15,9 +15,8 @@ import org.json.JSONException
 import java.io.BufferedReader
 import java.util.*
 
-
 class RecipePreset (private val context: Context) : RoomDatabase.Callback(){
-    override fun onOpen(db: SupportSQLiteDatabase) {
+    override fun onCreate(db: SupportSQLiteDatabase) {
         super.onCreate(db)
         val scope = CoroutineScope(Dispatchers.Default)
         scope.launch { initRecipes(context) }
@@ -42,6 +41,7 @@ class RecipePreset (private val context: Context) : RoomDatabase.Callback(){
                     val effort = item.getString("effort")
                     val description = item.getString("description")
                     val ingredients = item.getString("ingredients")
+                    val steps = item.getString("steps")
                     val imageFileURL = item.getString("image_file_url")
 
                     val recipe = Recipe(
@@ -50,7 +50,7 @@ class RecipePreset (private val context: Context) : RoomDatabase.Callback(){
                         effort = effort,
                         description = description,
                         ingredients = ingredients,
-                        //imageFileURL = imageFileURL
+                        steps = steps
                         )
                     dao?.addRecipe(recipe)
 
