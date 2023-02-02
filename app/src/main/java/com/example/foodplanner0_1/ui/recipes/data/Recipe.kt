@@ -12,5 +12,4 @@ data class Recipe(
     var effort: String = "",
     var ingredients: String = "",
     var steps: String = ""
-    //var imageFileURL: String? = null
 )

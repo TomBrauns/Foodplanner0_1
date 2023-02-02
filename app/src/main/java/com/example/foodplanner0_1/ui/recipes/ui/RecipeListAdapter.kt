@@ -14,11 +14,8 @@ class RecipeHolder(
     fun bind(recipe: Recipe, listener : OnRecipeSelected) {
 
         binding.recipesLabel.text = recipe.title
-        binding.recipeEffort.text = recipe.effort // This is the new element
-        //binding.recipesDescription.text = recipe.description (This does not exist in this Fragment ( or shouldnt, hard to test without a working project ... :D )
-        binding.recipesIngredients.text = recipe.description
-
-        //itemView.background = ColorDrawable(Color.GRAY)
+        binding.recipeEffort.text = recipe.effort
+        binding.recipesDescription.text = recipe.description
 
         binding.recipesButton.setOnClickListener {
             listener.onItemClick(recipe)
