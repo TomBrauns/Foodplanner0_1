@@ -17,7 +17,6 @@ import com.example.foodplanner0_1.ui.recipes.ui.editrecipe.EditRecipe
 import com.example.foodplanner0_1.ui.shoppinglist.data.ShoppingItem
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -54,7 +53,7 @@ class RecipeDetail : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_recipe_detail2, container, false)
+        val view = inflater.inflate(R.layout.fragment_recipe_detail, container, false)
         // Inflate the layout for this fragment
         title = view.findViewById(R.id.view_recipe_name)
         description = view.findViewById(R.id.view_recipe_description)
