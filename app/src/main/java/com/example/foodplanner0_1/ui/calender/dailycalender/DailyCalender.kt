@@ -207,7 +207,6 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
             .replace(R.id.nav_host_fragment_activity_main, recipeFragment)
             .addToBackStack(null)
             .commit()
-        //Toast.makeText(context, "Recipe view not implemented", Toast.LENGTH_SHORT).show()
     }
 
     override fun onShoppingListSelected(item: DailyMealModel, id : UUID?, controls: DailyMealAdapter.ViewHolder) {

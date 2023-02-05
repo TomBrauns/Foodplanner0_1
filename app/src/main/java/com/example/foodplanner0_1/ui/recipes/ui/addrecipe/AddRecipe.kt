@@ -71,6 +71,8 @@ class AddRecipe : Fragment() {
                         ingredientsInput.setText(text)
                         ingredientsInput.setSelection(ingredientsInput.text.length)
                     }
+                    // Restructuring of the text thats input ( Bulletinpoints are added to the linebreaks)
+                    // and ensures that only one bulletinpoint exists in each line
                     if (text.toString().endsWith("\n")) {
                         text = text.toString().replace("\n", "\n• ")
                         text = text.toString().replace("• •", "•")
@@ -98,6 +100,8 @@ class AddRecipe : Fragment() {
                         stepsInput.setText(text)
                         stepsInput.setSelection(stepsInput.text.length)
                     }
+                    // Restructuring of the text thats input ( Bulletinpoints are added to the linebreaks)
+                    // and ensures that only one bulletinpoint exists in each line
                     if (text.toString().endsWith("\n")) {
                         text = text.toString().replace("\n", "\n• ")
                         text = text.toString().replace("• •", "•")
@@ -147,7 +151,6 @@ class AddRecipe : Fragment() {
     }
 
     private fun returnToRecipes() {
-        //Toast.makeText(context, "Jejeje", Toast.LENGTH_SHORT).show()
         val recipeFragment = RecipeListFragment()
         parentFragmentManager
             .beginTransaction()

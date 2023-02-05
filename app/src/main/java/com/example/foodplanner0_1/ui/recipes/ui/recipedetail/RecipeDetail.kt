@@ -33,13 +33,13 @@ class RecipeDetail : Fragment() {
     private var uuid: String? = null
     private var origin: String? = null
 
-    private lateinit var title : TextView
-    private lateinit var description : TextView
-    private lateinit var effort : TextView
-    private lateinit var ingredients : TextView
-    private lateinit var steps : TextView
-    private lateinit var editButton : FloatingActionButton
-    private lateinit var shoppingButton : FloatingActionButton
+    private lateinit var title: TextView
+    private lateinit var description: TextView
+    private lateinit var effort: TextView
+    private lateinit var ingredients: TextView
+    private lateinit var steps: TextView
+    private lateinit var editButton: FloatingActionButton
+    private lateinit var shoppingButton: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +63,7 @@ class RecipeDetail : Fragment() {
         editButton = view.findViewById(R.id.edit_recipe_button)
         shoppingButton = view.findViewById(R.id.add_shopping_list_button)
 
-        editButton.setOnClickListener{
+        editButton.setOnClickListener {
             val recipeFragment = EditRecipe.newInstance(uuid!!, origin!!)
 
             parentFragmentManager
@@ -75,20 +75,21 @@ class RecipeDetail : Fragment() {
 
         val room = RecipeDatabase.get()
 
-        if(origin == "RECIPES"){
+        if (origin == "RECIPES") {
             //Toast.makeText(context, "GO BACK RECIPES", Toast.LENGTH_LONG).show()
-            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
-            val recipeFragment = RecipeListFragment()
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.nav_host_fragment_activity_main, recipeFragment)
-                .addToBackStack(null)
-                .setReorderingAllowed(true)
-                .commit()
-                }
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+                val recipeFragment = RecipeListFragment()
+                parentFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment_activity_main, recipeFragment)
+                    .addToBackStack(null)
+                    .setReorderingAllowed(true)
+                    .commit()
+            }
         }
-
-        lifecycleScope.launch{
+// The following block handles the linebreaks and general design of the Recipes. Ingredients are listed as bulletinpoints
+// And the Steps are numbered.
+        lifecycleScope.launch {
             var recipe = room.recipeDao().getRecipe(UUID.fromString(uuid))
             title.text = recipe.title
             description.text = recipe.description
@@ -96,25 +97,25 @@ class RecipeDetail : Fragment() {
             ingredients.text = "• " + recipe.ingredients.replace("\n", "\n• ")
             var stepsText = ""
 
-            recipe.steps.split("\n").forEachIndexed {index, step ->
+            recipe.steps.split("\n").forEachIndexed { index, step ->
                 stepsText += "" + (index + 1) + ". " + step + "\n"
             }
             steps.text = stepsText
 
         }
 
-        shoppingButton.setOnClickListener{
+        shoppingButton.setOnClickListener {
             AlertDialog.Builder(requireContext())
                 .setMessage("Add ingredients to shopping list?")
-                .setPositiveButton("Yes"){ dialog, idView ->
-                    lifecycleScope.launch{
+                .setPositiveButton("Yes") { dialog, idView ->
+                    lifecycleScope.launch {
                         val recipe = room.recipeDao().getRecipe(UUID.fromString(uuid!!))
                         val items = recipe.ingredients.split("\n")
                         val addItems = ArrayList<ShoppingItem>()
 
-                        for(item in items){
+                        for (item in items) {
                             val ingredient = item.trim()
-                            if(ingredient.isEmpty()){
+                            if (ingredient.isEmpty()) {
                                 continue
                             }
 
@@ -128,10 +129,14 @@ class RecipeDetail : Fragment() {
 
                         room.recipeDao().addShoppingCart(addItems)
 
-                        Toast.makeText(context, addItems.size.toString() + " ingredients added to shopping list", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            addItems.size.toString() + " ingredients added to shopping list",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
-                .setNegativeButton("No"){dialog, id ->
+                .setNegativeButton("No") { dialog, id ->
                     dialog.dismiss()
                 }.create()
                 .show()
@@ -142,7 +147,7 @@ class RecipeDetail : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(uuid: String, origin : String) =
+        fun newInstance(uuid: String, origin: String) =
             RecipeDetail().apply {
                 arguments = Bundle().apply {
                     putString(ARG_UUID, uuid)

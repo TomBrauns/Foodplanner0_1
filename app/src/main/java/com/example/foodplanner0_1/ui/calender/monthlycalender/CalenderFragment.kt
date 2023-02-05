@@ -162,7 +162,6 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
     }
 
     override fun onItemClick(item: DayCellModel) {
-        //Toast.makeText(context, "${SimpleDateFormat("E.dd.MMM.yyyy", Locale.ENGLISH).format(item.day!!.time)} selected", Toast.LENGTH_LONG).show()
         val day = item.day!!.get(Calendar.DAY_OF_MONTH)
         val month = item.day!!.get(Calendar.MONTH)
         val year = item.day!!.get(Calendar.YEAR)

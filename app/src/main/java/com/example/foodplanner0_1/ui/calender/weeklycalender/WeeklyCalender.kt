@@ -25,15 +25,14 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WeeklyCalender : Fragment()
-{
+class WeeklyCalender : Fragment() {
     var mealsList = mutableListOf<DayMeal>()
     val room = RecipeDatabase.get()
 
     lateinit var daysNumber: ArrayList<TextView>
-    lateinit var calendar : Calendar
+    lateinit var calendar: Calendar
     lateinit var monthText: TextView
-    private lateinit var monthlyViewButton : ImageButton
+    private lateinit var monthlyViewButton: ImageButton
     private val monthYearFormatter = SimpleDateFormat("MMM yyyy", Locale.ENGLISH)
     val formatter2 = SimpleDateFormat("E.dd.MMM.yyyy", Locale.ENGLISH)
     private val nameWeekFormatter = SimpleDateFormat("EEEE", Locale.ENGLISH)
@@ -58,9 +57,17 @@ class WeeklyCalender : Fragment()
     @SuppressLint("SimpleDateFormat")
     private fun weekController(view: View) {
         daysNumber = ArrayList<TextView>()
-        val days = listOf(R.id.sunNum, R.id.monNum, R.id.tueNum, R.id.wedNum, R.id.thurNum, R.id.friNum, R.id.satNum)
+        val days = listOf(
+            R.id.sunNum,
+            R.id.monNum,
+            R.id.tueNum,
+            R.id.wedNum,
+            R.id.thurNum,
+            R.id.friNum,
+            R.id.satNum
+        )
 
-        days.forEach(){
+        days.forEach() {
             daysNumber.add(view.findViewById(it))
         }
 
@@ -71,7 +78,7 @@ class WeeklyCalender : Fragment()
 
         calendar = Calendar.getInstance()
         // Calendar set to first sunday
-        while(calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY){
+        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
             calendar.add(Calendar.DAY_OF_WEEK, -1)
         }
 
@@ -86,7 +93,10 @@ class WeeklyCalender : Fragment()
         }
 
         monthlyViewButton.setOnClickListener {
-            val newFragment = CalenderFragment.newInstance(calendar.get(Calendar.MONTH,), calendar.get(Calendar.YEAR))
+            val newFragment = CalenderFragment.newInstance(
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.YEAR)
+            )
 
             parentFragmentManager
                 .beginTransaction()
@@ -97,46 +107,56 @@ class WeeklyCalender : Fragment()
         }
     }
 
-    private fun updateWeek(){
+    private fun updateWeek() {
         val itCalendar = calendar.clone() as Calendar
         mealsList.clear()
         adapter.notifyItemRangeRemoved(0, 7)
         //MealDatabase.initialize(requireContext())
 
 
+        lifecycleScope.launch {
+            daysNumber.forEach() {
 
-            lifecycleScope.launch{
-                daysNumber.forEach(){
+                it.text = itCalendar.get(Calendar.DAY_OF_MONTH).toString()
+                if (DateUtils.isToday(itCalendar.timeInMillis)) {
+                    it.setTypeface(null, Typeface.BOLD)
+                } else {
+                    it.setTypeface(null, Typeface.NORMAL)
+                }
 
-                    it.text = itCalendar.get(Calendar.DAY_OF_MONTH).toString()
-                    if(DateUtils.isToday(itCalendar.timeInMillis)){
-                        it.setTypeface(null, Typeface.BOLD)
-                    }else{
-                        it.setTypeface(null, Typeface.NORMAL)
-                    }
+                val mealDb = room.recipeDao().getMeal(
+                    itCalendar.get(Calendar.DAY_OF_MONTH),
+                    itCalendar.get(Calendar.MONTH),
+                    itCalendar.get(Calendar.YEAR)
+                )
+                var meal: DayMeal
 
-                    val mealDb = room.recipeDao().getMeal(itCalendar.get(Calendar.DAY_OF_MONTH), itCalendar.get(Calendar.MONTH), itCalendar.get(Calendar.YEAR))
-                    var meal : DayMeal
+                Log.d(
+                    "--MEAL--" + itCalendar.get(Calendar.DAY_OF_MONTH).toString(),
+                    mealDb?.breakfast.toString()
+                )
 
-                    Log.d("--MEAL--" + itCalendar.get(Calendar.DAY_OF_MONTH).toString(), mealDb?.breakfast.toString())
+                if (mealDb == null) {
+                    meal = DayMeal(
+                        nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH)
+                            .toString(),
+                        MealConstants.NO_MEAL_SELECTED,
+                        MealConstants.NO_MEAL_SELECTED,
+                        MealConstants.NO_MEAL_SELECTED
+                    )
+                } else {
+                    meal = DayMeal(
+                        nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH)
+                            .toString(),
+                        mealDb.breakfastName ?: MealConstants.NO_MEAL_SELECTED,
+                        mealDb.lunchName ?: MealConstants.NO_MEAL_SELECTED,
+                        mealDb.dinnerName ?: MealConstants.NO_MEAL_SELECTED
+                    )
+                }
 
-                    if(mealDb == null){
-                        meal = DayMeal(
-                            nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH).toString(),
-                            MealConstants.NO_MEAL_SELECTED, MealConstants.NO_MEAL_SELECTED, MealConstants.NO_MEAL_SELECTED
-                        )
-                    }else{
-                        meal = DayMeal(
-                            nameWeekFormatter.format(itCalendar.time) + " " + itCalendar.get(Calendar.DAY_OF_MONTH).toString(),
-                            mealDb.breakfastName ?: MealConstants.NO_MEAL_SELECTED,
-                            mealDb.lunchName?: MealConstants.NO_MEAL_SELECTED,
-                            mealDb.dinnerName?: MealConstants.NO_MEAL_SELECTED
-                        )
-                    }
-
-                    mealsList.add(meal)
-                    adapter.notifyItemInserted(mealsList.size - 1)
-                    itCalendar.add(Calendar.DATE, 1)
+                mealsList.add(meal)
+                adapter.notifyItemInserted(mealsList.size - 1)
+                itCalendar.add(Calendar.DATE, 1)
             }
         }
 
@@ -152,7 +172,7 @@ class WeeklyCalender : Fragment()
         adapter = MealsAdapter(mealsList)
         recyclerView.adapter = adapter
 
-        adapter.setOnItemClickListener(object : MealsAdapter.MealClickListener{
+        adapter.setOnItemClickListener(object : MealsAdapter.MealClickListener {
             override fun onClick(meal: DayMeal) {
                 val day = meal.date.split(" ").last().toInt()
                 val month = calendar.get(Calendar.MONTH)
@@ -171,7 +191,6 @@ class WeeklyCalender : Fragment()
 
         updateWeek()
     }
-
 
 
 }
