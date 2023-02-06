@@ -17,7 +17,7 @@ import java.io.IOException
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
-class SimpleExampleTest {
+class RecipeDatabaseTest {
     private lateinit var dao: RecipeDao
     private lateinit var db: RecipeDatabase
 
