@@ -10,5 +10,4 @@ class DailyMealModel (
     var mealSelected: String = MealConstants.NO_SELECTION_MEAL,
     var meals: ArrayList<String>,
     var mealsId : ArrayList<UUID?>
-    ){
-}
+    )

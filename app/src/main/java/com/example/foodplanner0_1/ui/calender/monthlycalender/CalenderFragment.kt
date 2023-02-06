@@ -120,8 +120,6 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
             dayOfWeek = 0
         }
 
-        //Toast.makeText(context, "${daysInMonth} - ${dayOfWeek} - ${itCalendar.get(Calendar.DAY_OF_MONTH)}", Toast.LENGTH_LONG).show()
-
         for(i in 1..42){
             if(i < dayOfWeek || i >= daysInMonth + dayOfWeek){
                 days.add(
@@ -143,13 +141,6 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param position Position of the dog in ArrayList
-         * @return A new instance of fragment ViewDogModel.
-         */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(month: Int, year: Int) =

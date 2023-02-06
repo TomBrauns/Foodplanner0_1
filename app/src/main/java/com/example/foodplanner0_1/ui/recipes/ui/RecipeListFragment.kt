@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -28,7 +27,7 @@ class RecipeListFragment : Fragment(), OnRecipeSelected {
     //private var _binding: FragmentRecipesBinding? = null
 
     private lateinit var addRecipeButton : FloatingActionButton
-    private lateinit var recipesRecylerView : RecyclerView
+    private lateinit var recipesRecyclerView : RecyclerView
     private lateinit var adapter : RecipeListAdapter
     //val recipeDao = RecipeDatabase.get()
 
@@ -53,7 +52,7 @@ class RecipeListFragment : Fragment(), OnRecipeSelected {
         addRecipeButton = view.findViewById(R.id.add_recipe_button)
         addRecipeButton.bringToFront()
 
-        recipesRecylerView = view.findViewById(R.id.recipes_list_recycler_view)
+        recipesRecyclerView = view.findViewById(R.id.recipes_list_recycler_view)
         //_binding = FragmentRecipesBinding.inflate(inflater, container, false)
 
         //binding.recipesListRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -85,7 +84,7 @@ class RecipeListFragment : Fragment(), OnRecipeSelected {
         //Toast.makeText(context, "" + recipes.size + " --- " + recipesList.size, Toast.LENGTH_SHORT).show()
 
         val adapter = RecipeListAdapter(requireContext()!!, recipesList, this)
-        recipesRecylerView.adapter = adapter
+        recipesRecyclerView.adapter = adapter
         adapter.notifyItemRangeInserted(0, recipesList.size)
 
     }
@@ -94,8 +93,8 @@ class RecipeListFragment : Fragment(), OnRecipeSelected {
         super.onViewCreated(view, savedInstanceState)
 
         val layoutManager = LinearLayoutManager(context)
-        recipesRecylerView = view.findViewById(R.id.recipes_list_recycler_view)
-        recipesRecylerView.layoutManager = layoutManager
+        recipesRecyclerView = view.findViewById(R.id.recipes_list_recycler_view)
+        recipesRecyclerView.layoutManager = layoutManager
     }
 
     override fun onDestroyView() {
