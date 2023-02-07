@@ -1,4 +1,4 @@
-package com.example.foodplanner0_1.ui.calender.weeklycalender
+package com.example.foodplanner0_1.ui.calender.weeklycalendar
 
 import android.annotation.SuppressLint
 import android.graphics.Typeface
@@ -16,16 +16,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
-import com.example.foodplanner0_1.ui.calender.dailycalender.DailyCalender
-import com.example.foodplanner0_1.ui.calender.dailycalender.MealConstants
-import com.example.foodplanner0_1.ui.calender.monthlycalender.CalenderFragment
+import com.example.foodplanner0_1.ui.calender.dailycalendar.DailyCalendar
+import com.example.foodplanner0_1.ui.calender.dailycalendar.MealConstants
+import com.example.foodplanner0_1.ui.calender.monthlycalendar.CalendarFragment
 import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WeeklyCalender : Fragment() {
+class WeeklyCalendar : Fragment() {
     var mealsList = mutableListOf<DayMeal>()
     val room = RecipeDatabase.get()
 
@@ -49,7 +49,7 @@ class WeeklyCalender : Fragment() {
         val userViewModel =
             ViewModelProvider(this).get(WeeklyViewModel::class.java)
 
-        val view = inflater.inflate(R.layout.fragment_weekly_calender, container, false)
+        val view = inflater.inflate(R.layout.fragment_weekly_calendar, container, false)
         weekController(view)
         return view
     }
@@ -93,7 +93,7 @@ class WeeklyCalender : Fragment() {
         }
 
         monthlyViewButton.setOnClickListener {
-            val newFragment = CalenderFragment.newInstance(
+            val newFragment = CalendarFragment.newInstance(
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.YEAR)
             )
@@ -178,7 +178,7 @@ class WeeklyCalender : Fragment() {
                 val month = calendar.get(Calendar.MONTH)
                 val year = calendar.get(Calendar.YEAR)
 
-                val dailyViewFragment = DailyCalender.newInstance(day, month, year)
+                val dailyViewFragment = DailyCalendar.newInstance(day, month, year)
 
                 parentFragmentManager
                     .beginTransaction()

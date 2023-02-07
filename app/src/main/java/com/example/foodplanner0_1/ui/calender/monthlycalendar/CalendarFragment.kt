@@ -1,4 +1,4 @@
-package com.example.foodplanner0_1.ui.calender.monthlycalender
+package com.example.foodplanner0_1.ui.calender.monthlycalendar
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -12,9 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner0_1.R
-import com.example.foodplanner0_1.ui.calender.dailycalender.DailyCalender
+import com.example.foodplanner0_1.ui.calender.dailycalendar.DailyCalendar
 import com.example.foodplanner0_1.ui.calender.data.Meal
-import com.example.foodplanner0_1.ui.calender.weeklycalender.WeeklyCalender
+import com.example.foodplanner0_1.ui.calender.weeklycalendar.WeeklyCalendar
 import com.example.foodplanner0_1.ui.recipes.data.RecipeDatabase
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
@@ -25,7 +25,7 @@ import java.util.*
 private const val MONTH_NUMBER = "month"
 private const val YEAR_NUMBER = "year"
 
-class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
+class CalendarFragment : Fragment(), CalendarCellAdapter.OnCellListener {
 
     lateinit var calendar : Calendar
     lateinit var monthText: TextView
@@ -54,7 +54,7 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_calender, container, false)
+        val view = inflater.inflate(R.layout.fragment_calendar, container, false)
 
         monthText = view.findViewById(R.id.monthName)
         backDate = view.findViewById(R.id.buttonBackMonth)
@@ -85,7 +85,7 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
         weeklyViewButton.setOnClickListener {
             parentFragmentManager
                 .beginTransaction()
-                .replace(R.id.nav_host_fragment_activity_main, WeeklyCalender())
+                .replace(R.id.nav_host_fragment_activity_main, WeeklyCalendar())
                 .addToBackStack(null)
                 .commit()
 
@@ -102,7 +102,7 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
                 Log.d("MONTH MEAL", meal.breakfast.toString() + "   " + meal.day.toString())
             }
             val days = getDays(monthMeals)
-            val adapter = CalendarCellAdapter(days, requireContext(), this@CalenderFragment)
+            val adapter = CalendarCellAdapter(days, requireContext(), this@CalendarFragment)
             val layoutManager = GridLayoutManager(context, 7)
             calendarRecyclerView.layoutManager = layoutManager
             calendarRecyclerView.adapter = adapter
@@ -144,7 +144,7 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(month: Int, year: Int) =
-            CalenderFragment().apply {
+            CalendarFragment().apply {
                 arguments = Bundle().apply {
                     putInt(MONTH_NUMBER, month)
                     putInt(YEAR_NUMBER, year)
@@ -157,7 +157,7 @@ class CalenderFragment : Fragment(), CalendarCellAdapter.OnCellListener {
         val month = item.day!!.get(Calendar.MONTH)
         val year = item.day!!.get(Calendar.YEAR)
 
-        val dailyViewFragment = DailyCalender.newInstance(day, month, year)
+        val dailyViewFragment = DailyCalendar.newInstance(day, month, year)
 
         parentFragmentManager
             .beginTransaction()

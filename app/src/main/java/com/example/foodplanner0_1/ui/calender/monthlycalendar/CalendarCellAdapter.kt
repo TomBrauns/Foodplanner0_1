@@ -1,4 +1,4 @@
-package com.example.foodplanner0_1.ui.calender.monthlycalender
+package com.example.foodplanner0_1.ui.calender.monthlycalendar
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.example.foodplanner0_1.ui.calender.weeklycalender
+package com.example.foodplanner0_1.ui.calender.weeklycalendar
 
 val MEAL_ID_EXTRA = "mealExtra"
 

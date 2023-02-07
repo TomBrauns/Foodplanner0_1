@@ -1,4 +1,4 @@
-package com.example.foodplanner0_1.ui.calender.dailycalender
+package com.example.foodplanner0_1.ui.calender.dailycalendar
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.get
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +31,7 @@ private const val DAY_PARAM = "dayParam"
 private const val MONTH_PARAM = "monthParam"
 private const val YEAR_PARAM = "yearParam"
 
-class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
+class DailyCalendar : Fragment(), DailyMealAdapter.OnMealListener {
     private var day : Int? = null
     private var month : Int? = null
     private var year : Int? = null
@@ -65,7 +63,7 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_daily_calender, container, false)
+        val view = inflater.inflate(R.layout.fragment_daily_calendar, container, false)
 
         dayNumber = view.findViewById(R.id.dayNumberDaily)
         monthYear = view.findViewById(R.id.monthYearDaily)
@@ -175,7 +173,7 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
 
             val layoutManager = LinearLayoutManager(context)
             mealRecylerView.layoutManager = layoutManager
-            adapter = DailyMealAdapter(mealItems, requireContext(), this@DailyCalender)
+            adapter = DailyMealAdapter(mealItems, requireContext(), this@DailyCalendar)
             mealRecylerView.adapter = adapter
 
         }
@@ -186,7 +184,7 @@ class DailyCalender : Fragment(), DailyMealAdapter.OnMealListener {
     companion object {
         @JvmStatic
         fun newInstance(day: Int, month: Int, year: Int) =
-            DailyCalender().apply {
+            DailyCalendar().apply {
                 arguments = Bundle().apply {
                     putInt(DAY_PARAM, day)
                     putInt(MONTH_PARAM, month)
